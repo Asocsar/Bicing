@@ -1,7 +1,5 @@
 package Van;
 
-import aima.util.Pair;
-
 public class Van {
     private static int cap_max = 30;
     private int CordX;
