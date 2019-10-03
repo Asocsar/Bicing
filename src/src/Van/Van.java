@@ -27,7 +27,7 @@ public class Van {
     }
 
     public void pickUp(int number) {
-
+        String s = "no hagas caso a esto";
     }
 
     public void leave(int number) {
