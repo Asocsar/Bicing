@@ -20,7 +20,7 @@ public class Van {
     }
 
     public int move (int x, int y) {
-        int n = 8;
+        int n = 7;
     }
 
 }
