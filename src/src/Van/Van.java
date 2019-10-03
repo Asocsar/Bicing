@@ -19,9 +19,14 @@ public class Van {
 
     }
 
-    public int move (int x, int y) {
-        int n = 7;
+    public double move (int x, int y) {
+        double cost = Math.abs(this.CordX-x) + Math.abs(this.CordY-y);
+        this.CordX = x;
+        this.CordY = y;
+        return  cost;
     }
+
+
 
 }
 
