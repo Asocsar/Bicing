@@ -1,5 +1,5 @@
 public class Main {
     public static void main(String[] args) {
-        int n = 99;
+        int n = 998888;
     }
 }
