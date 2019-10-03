@@ -20,9 +20,17 @@ public class Van {
     }
 
     public int move (int x, int y) {
+        return n;
+    }
+
+    public void pickUp(int number) {
 
     }
 
+    public void leave(int number) {
+        visited += 1;
+        carga -= number;
+    }
 }
 
 
