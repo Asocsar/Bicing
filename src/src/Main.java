@@ -7,7 +7,7 @@ public class Main {
         int sumDem = 0;
         int sumAvai = 0;
         int sumNeed = 0;
-        Estaciones b = new Estaciones(25, 1250, 0, 433);
+        Estaciones b = new Estaciones(25, 1250, 1, 233);
         double[] stdDem = new double[b.size()];
         double[] stdStay = new double[b.size()];
         double[] stdCurr = new double[b.size()];

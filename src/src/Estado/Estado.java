@@ -13,6 +13,7 @@ public class Estado {
 
     public Estado (int num_est, int nbicis, int nfurgo, int demanda, int seed) {
         this.Est = new Estaciones(num_est, nbicis, demanda, seed);
+        this.cdesp = 0;
 
 
 
