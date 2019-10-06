@@ -42,11 +42,9 @@ public class Van {
     }
 
     public void reset () {
-        this.visited = 0;
+        this.visited = -1;
     }
 
 
 
 }
-
-
