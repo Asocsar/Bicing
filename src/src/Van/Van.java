@@ -7,12 +7,10 @@ public class Van {
     private int CordY;
     private double long_t;
     private int charge;
-    private int visited;
 
     public Van (int x, int y) {
-        this.CordX = x*100;
-        this.CordY = y*100;
-        this.visited = 0;
+        this.CordX = x;
+        this.CordY = y;
         this.charge = 0;
         this.long_t = 0;
 
@@ -22,7 +20,7 @@ public class Van {
         double cost = Math.abs(this.CordX-x) + Math.abs(this.CordY-y);
         this.CordX = x;
         this.CordY = y;
-        return cost;
+        return (cost/1000)*((this.charge+9)/10);
     }
 
     public void pickUp(int number, Estacion e) {
@@ -33,19 +31,19 @@ public class Van {
 
     public void leave(int number, Estacion e) {
         this.charge -= number;
-        this.visited += 1;
         e.setNumBicicletasNext(e.getNumBicicletasNext()+number);
         e.setNumBicicletasNoUsadas(e.getNumBicicletasNoUsadas()+number);
     }
 
-    public void reset () {
-        this.visited = 0;
-    }
+
 
     public int carga() { return this.charge; }
 
-    public int visitados () { return this.visited; }
+    public int carga_max () { return cap_max; }
 
+    public int getCordX () { return this.CordX; }
+
+    public int getCordY () { return this.CordY; }
 
 
 }
