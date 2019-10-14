@@ -6,7 +6,7 @@ import Van.Van;
 
 import java.util.ArrayList;
 
-public class Estado {
+public class Estado implements  Cloneable{
 
     private Estaciones Est;
     private int num_est;
@@ -93,6 +93,10 @@ public class Estado {
     public int getN_furgo () {return n_furgo;}
 
     public Van getIFurgo (int i_furgo) {return this.Furgonetas[i_furgo];}
+
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
 
 
 }

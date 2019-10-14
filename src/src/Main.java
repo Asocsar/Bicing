@@ -1,11 +1,12 @@
-import IA.Bicing.Estaciones;
+import Estado.Estado;
 import IA.Bicing.Estacion;
+import IA.Bicing.Estaciones;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws CloneNotSupportedException {
         int sumBic = 0;
         int sumDem = 0;
         int sumAvai = 0;
@@ -14,8 +15,6 @@ public class Main {
         int cantEDisp = 0;
 
         Estaciones b = new Estaciones(25, 1250, 1, 233);
-        Estaciones aux = (Estaciones) b.clone();
-        //aux.get(0).setNumBicicletasNext(20000);
         int [] dispo = new int [b.size()];
         int [] faltan = new int [b.size()];
         Arrays.fill(dispo, 0);
