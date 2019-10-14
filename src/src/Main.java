@@ -14,6 +14,8 @@ public class Main {
         int cantEDisp = 0;
 
         Estaciones b = new Estaciones(25, 1250, 1, 233);
+        Estaciones aux = (Estaciones) b.clone();
+        //aux.get(0).setNumBicicletasNext(20000);
         int [] dispo = new int [b.size()];
         int [] faltan = new int [b.size()];
         Arrays.fill(dispo, 0);
@@ -56,16 +58,16 @@ public class Main {
         }
 
         System.out.format("\nBicis= %3d Demanda= %3d Disponibles= %3d Necesitan= %3d  NumeroESt.Disp = %3d NumeroEst.Neces = %d\n\n", sumBic, sumDem, sumAvai, sumNeed, cantEDisp, cantENeed);
-        System.out.println("Estaciones con sus bicis sobrantes");
+        //System.out.println("Estaciones con sus bicis sobrantes");
        /* for (int i = 0; i < b.size(); ++i) {
             if (dispo[i] > 0) System.out.format("\n Estacion numero= %d con= %d bicis disponibles\n", i, dispo[i]);
 
-        }*/
+        }
 
         for (int i = 0; i < b.size(); ++i) {
             if (faltan[i] > 0) System.out.format("\n Estacion numero= %d con= %d bicis faltantes\n", i, faltan[i]);
 
-        }
+        }*/
 
     }
 }
