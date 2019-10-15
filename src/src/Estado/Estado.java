@@ -4,24 +4,31 @@ import IA.Bicing.Estaciones;
 import IA.Bicing.Estacion;
 import Van.Van;
 
+import java.awt.color.ICC_Profile;
 import java.util.ArrayList;
 
-public class Estado implements  Cloneable{
+public class Estado {
 
     private Estaciones Est;
-    private int num_est;
-    private Van [] Furgonetas;
+    private static int num_ests;
+    private static int nbiciss;
+    private static int demandas;
+    private static int seeds;
     private double cdesp;
-    private static int n_furgo = 30;
+    private static int n_furgo;
+    private Van [] Furgonetas = new Van [n_furgo];
 
     public Estado (int num_est, int nbicis, int nfurgo, int demanda, int seed) {
         this.Est = new Estaciones(num_est, nbicis, demanda, seed);
         this.cdesp = 0;
-        this.num_est = num_est;
-        this.Furgonetas = new Van[n_furgo];
+        num_ests = num_est;
+        n_furgo = nfurgo;
+        nbiciss = nbicis;
+        demandas = demanda;
+        seeds = seed;
         int j_fur = 0;
         int i_est = 0;
-        while (j_fur < n_furgo && i_est < this.num_est) {
+        while (j_fur < n_furgo && i_est < num_ests) {
             Estacion E = this.Est.get(i_est);
             int x = E.getCoordX();
             int y = E.getCoordY();
@@ -31,7 +38,7 @@ public class Estado implements  Cloneable{
         }
 
         while (j_fur < n_furgo) {
-            i_est = i_est % this.num_est;
+            i_est = i_est % num_est;
             Estacion E = this.Est.get(i_est);
             int x = E.getCoordX();
             int y = E.getCoordY();
@@ -47,7 +54,7 @@ public class Estado implements  Cloneable{
         int y_van = Furgonetas[i_furgo].getCordY();
         int max_get = 0;
         int i_est = -1;
-        for (int i = 0; i < num_est; ++i) {
+        for (int i = 0; i < num_ests; ++i) {
             int cant = Est.get(i).getNumBicicletasNext() - Est.get(i).getDemanda();
             if (cant > max_get && !visited[i]) {max_get = cant; i_est = i;}
         }
@@ -88,14 +95,34 @@ public class Estado implements  Cloneable{
 
     public double getganancia () {return this.cdesp;}
 
-    public int getNum_est () {return num_est;}
+    public int getNum_est () {return num_ests;}
+
+    public void setNum_est (int n) {num_ests = n;}
 
     public int getN_furgo () {return n_furgo;}
 
+    public void setFurgo (Van V, int i) {this.Furgonetas[i] = V; }
+
     public Van getIFurgo (int i_furgo) {return this.Furgonetas[i_furgo];}
 
-    public Object clone() throws CloneNotSupportedException {
-        return super.clone();
+    public void setEstaciones (Estaciones E) { this.Est = E;}
+
+    public Estado clonar () throws CloneNotSupportedException {
+        Estado E = new Estado(num_ests, nbiciss, n_furgo, demandas, seeds);
+        E.setganancia(this.cdesp);
+        for (int i = 0; i < n_furgo; ++i) {
+            E.setFurgo((Van) this.Furgonetas[i].clone(), i);
+        }
+
+        Estaciones aux = new Estaciones (num_ests, nbiciss, demandas, seeds);
+        for (int i = 0; i < num_ests; ++i) {
+            aux.get(i).setNumBicicletasNoUsadas(Est.get(i).getNumBicicletasNoUsadas());
+            aux.get(i).setNumBicicletasNext(Est.get(i).getNumBicicletasNext());
+            aux.get(i).setDemanda(Est.get(i).getDemanda());
+        }
+
+        E.setEstaciones(aux);
+        return E;
     }
 
 

@@ -1,7 +1,7 @@
 package Van;
 import IA.Bicing.Estacion;
 
-public class Van {
+public class Van implements  Cloneable{
     private static int cap_max = 30;
     private int CordX;
     private int CordY;
@@ -45,5 +45,8 @@ public class Van {
 
     public int getCordY () { return this.CordY; }
 
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
 
 }
