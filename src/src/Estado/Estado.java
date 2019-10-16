@@ -3,10 +3,8 @@ package Estado;
 import IA.Bicing.Estaciones;
 import IA.Bicing.Estacion;
 import Van.Van;
-import aima.util.Pair;
 
-import java.awt.color.ICC_Profile;
-import java.util.ArrayList;
+
 import java.util.Arrays;
 
 public class Estado {
@@ -77,26 +75,23 @@ public class Estado {
     }
 
 
-    public double Dejar (int i_est, int i_furgo) {
-        double coste_max = 0;
-        double max_gan = 0;
-        for (int j = 0; j < num_ests; ++j) {
-            Estacion E = (Estacion) this.Est.get(j);
-            double coste = Furgonetas[i_furgo].move(E.getCoordX(), E.getCoordY());
-            int Dem = E.getDemanda();
-            int Curr = E.getNumBicicletasNext();
-            int dif = Dem - Curr;
-            double ganancia;
-            if (dif < Furgonetas[i_furgo].carga()) {
-                Furgonetas[i_furgo].leave(dif, E);
-                ganancia = (double) dif;
-            } else {
-                Furgonetas[i_furgo].leave(Furgonetas[i_furgo].carga(), E);
-                ganancia = (double) Furgonetas[i_furgo].carga();
-            }
-            if (coste_max + max_gan < coste + ganancia) {}
+    public int Dejar (int i_furgo) {
+        int max_ben = 0;
+        int i_est = 0;
+        Van V = Furgonetas[i_furgo];
+        for (int i = 0; i < Est.size(); ++i) {
+            Estacion E = Est.get(i);
+            int cost = ((V.carga()*9)/10)*((Math.abs(V.getCordX()-E.getCoordX()) + Math.abs(V.getCordY()-E.getCoordY()))/1000);
+            int Dif = E.getDemanda() - E.getNumBicicletasNext();
+            int ganancia = 0;
+            if (Dif < V.carga()) ganancia =  Dif;
+            else ganancia = V.carga();
+            int total =  ganancia - cost;
+            if (total > max_ben) {max_ben = total; i_est = i;}
         }
-        return coste_max + max_gan;
+        int cost = Furgonetas[i_furgo].move(Est.get(i_est).getCoordX(), Est.get(i_est).getCoordY());
+        Furgonetas[i_furgo].leave(max_ben, Est.get(i_est));
+        return max_ben - cost;
     }
 
 

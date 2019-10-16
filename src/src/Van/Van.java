@@ -16,8 +16,8 @@ public class Van  {
 
     }
 
-    public double move (int x, int y) {
-        double cost = Math.abs(this.CordX-x) + Math.abs(this.CordY-y);
+    public int move (int x, int y) {
+        int cost = Math.abs(this.CordX-x) + Math.abs(this.CordY-y);
         this.CordX = x;
         this.CordY = y;
         return (cost/1000)*((this.charge+9)/10);

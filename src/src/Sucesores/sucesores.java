@@ -22,7 +22,8 @@ public class sucesores implements SuccessorFunction {
             int [] accion = new int [5];
             Arrays.fill(accion, 0);
             int suma = 0;
-            while (suma <= interval*2) {
+            while (suma <= interval*3) {
+                suma = 0;
                 Estado next_Est = Est.clonar();
                 double ganancia = next_Est.getganancia();
                 boolean [] visited = new boolean[n_est];
@@ -39,12 +40,14 @@ public class sucesores implements SuccessorFunction {
                 retVal.add(new Successor("Beneficio de " + ganancia, next_Est));
                 int k = 0;
                 accion[k] += 1;
+                suma += accion[k];++k;
                 while(k < accion.length) {
                     if (accion[k] == 4) {
                         accion[k] = 0;
                         accion[k+1] += 1;
                     }
-                    ++k;
+                    k = k+1;
+                    suma = suma + accion[k];
                 }
 
             }
