@@ -47,7 +47,7 @@ public class sucesores implements SuccessorFunction {
                         accion[k+1] += 1;
                     }
                     k = k+1;
-                    suma = suma + accion[k];
+                    if (k < accion.length) suma = suma + accion[k];
                 }
 
             }

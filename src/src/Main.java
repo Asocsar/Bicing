@@ -1,73 +1,79 @@
-import Estado.Estado;
-import IA.Bicing.Estacion;
-import IA.Bicing.Estaciones;
+//
+// Source code recreated from a .class file by IntelliJ IDEA
+// (powered by Fernflower decompiler)
+//
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import Estado.Estado;
+import Check.isGoal;
+import Heurisitc_Function_1.Heuristic_Function;
+import Sucesores.sucesores;
+import aima.search.framework.Problem;
+import aima.search.framework.Search;
+import aima.search.framework.SearchAgent;
+import aima.search.informed.HillClimbingSearch;
+import aima.search.informed.SimulatedAnnealingSearch;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Properties;
 
 public class Main {
-    public static void main(String[] args) throws CloneNotSupportedException {
-        int sumBic = 0;
-        int sumDem = 0;
-        int sumAvai = 0;
-        int sumNeed = 0;
-        int cantENeed = 0;
-        int cantEDisp = 0;
+    public Main() {
+    }
 
-        Estaciones b = new Estaciones(25, 1250, 1, 233);
-        int [] dispo = new int [b.size()];
-        int [] faltan = new int [b.size()];
-        Arrays.fill(dispo, 0);
-        Arrays.fill(faltan, 0);
-        double[] stdDem = new double[b.size()];
-        double[] stdStay = new double[b.size()];
-        double[] stdCurr = new double[b.size()];
-        System.out.println("Sta Cur Dem Dif Exc ");
+    public static void main(String[] args) {
+        Estado Bicing = new Estado(20,1250,30,0,255);
+        BicingHillClimbingSearch(Bicing);
+        //BicingsimulatedAnnealingSearch(Bicing);
+    }
 
-        for(int i = 0; i < b.size(); ++i) {
-            int numStay = ((Estacion)b.get(i)).getNumBicicletasNoUsadas();
-            int numCurr = ((Estacion)b.get(i)).getNumBicicletasNext();
-            int numDem = ((Estacion)b.get(i)).getDemanda();
-            stdStay[i] = (double)numStay;
-            stdCurr[i] = (double)numCurr;
-            stdDem[i] = (double)numDem;
-            sumBic += numCurr;
-            sumDem += numDem;
-            int balance = numCurr - numDem;
-            int mover;
-            if (balance > 0) {
-                if (balance > numStay) {
-                    mover = numStay;
+    private static void BicingHillClimbingSearch(Estado TSPB) {
+        System.out.println("\nTSP HillClimbing  -->");
 
-                } else {
-                    mover = balance;
-                }
-                dispo[i] = mover;
-                ++cantEDisp;
-                sumAvai += mover;
-            } else {
-                mover = 0;
-                faltan[i] = -(balance);
-                sumNeed -= balance;
-                ++cantENeed;
-            }
-
-            System.out.format("est %2d = %2d %2d\n", i, ((Estacion)b.get(i)).getCoordX(), ((Estacion)b.get(i)).getCoordY());
-            System.out.format("%3d %3d %3d %3d %3d\n", numStay, numCurr, numDem, balance, mover);
+        try {
+            Problem problem = new Problem(TSPB, new sucesores(), new isGoal(), new Heuristic_Function());
+            Search search = new HillClimbingSearch();
+            SearchAgent agent = new SearchAgent(problem, search);
+            System.out.println();
+            printActions(agent.getActions());
+            printInstrumentation(agent.getInstrumentation());
+        } catch (Exception var4) {
+            var4.printStackTrace();
         }
 
-        System.out.format("\nBicis= %3d Demanda= %3d Disponibles= %3d Necesitan= %3d  NumeroESt.Disp = %3d NumeroEst.Neces = %d\n\n", sumBic, sumDem, sumAvai, sumNeed, cantEDisp, cantENeed);
-        //System.out.println("Estaciones con sus bicis sobrantes");
-       /* for (int i = 0; i < b.size(); ++i) {
-            if (dispo[i] > 0) System.out.format("\n Estacion numero= %d con= %d bicis disponibles\n", i, dispo[i]);
+    }
+/*
+    private static void TSPSimulatedAnnealingSearch(ProbTSPBoard TSPB) {
+        System.out.println("\nTSP Simulated Annealing  -->");
 
+        try {
+            Problem problem = new Problem(TSPB, new ProbTSPSuccessorFunctionSA(), new ProbTSPGoalTest(), new ProbTSPHeuristicFunction());
+            SimulatedAnnealingSearch search = new SimulatedAnnealingSearch(2000, 100, 5, 0.001D);
+            SearchAgent agent = new SearchAgent(problem, search);
+            System.out.println();
+            printActions(agent.getActions());
+            printInstrumentation(agent.getInstrumentation());
+        } catch (Exception var4) {
+            var4.printStackTrace();
         }
 
-        for (int i = 0; i < b.size(); ++i) {
-            if (faltan[i] > 0) System.out.format("\n Estacion numero= %d con= %d bicis faltantes\n", i, faltan[i]);
+    }
+*/
+    private static void printInstrumentation(Properties properties) {
+        Iterator keys = properties.keySet().iterator();
 
-        }*/
+        while(keys.hasNext()) {
+            String key = (String)keys.next();
+            String property = properties.getProperty(key);
+            System.out.println(key + " : " + property);
+        }
+
+    }
+
+    private static void printActions(List actions) {
+        for(int i = 0; i < actions.size(); ++i) {
+            String action = (String)actions.get(i);
+            System.out.println(action);
+        }
 
     }
 }
-

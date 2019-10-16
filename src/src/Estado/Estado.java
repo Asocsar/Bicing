@@ -16,19 +16,20 @@ public class Estado {
     private static int seeds;
     private double cdesp;
     private static int n_furgo;
-    boolean [] visited;
+    //boolean [] visited;
     //private double demanda_total;
-    private Van [] Furgonetas = new Van [n_furgo];
+    private Van [] Furgonetas;
 
     public Estado (int num_est, int nbicis, int nfurgo, int demanda, int seed) {
         this.Est = new Estaciones(num_est, nbicis, demanda, seed);
         this.cdesp = 0;
-        Arrays.fill(this.visited, false);
+        //Arrays.fill(this.visited, false);
         num_ests = num_est;
         n_furgo = nfurgo;
         nbiciss = nbicis;
         demandas = demanda;
         seeds = seed;
+        this.Furgonetas = new Van [n_furgo];
         //this.demanda_total = 0;
         int j_fur = 0;
         int i_est = 0;
@@ -111,28 +112,22 @@ public class Estado {
 
     public void setFurgo (Van V, int i) {this.Furgonetas[i] = V; }
 
-    public boolean getVisited (int i) {return this.visited[i];}
-
-    public void setVisited (boolean value, int i, int tots) {
-        if (tots == 1) {
-            for (int j = 0; j < this.visited.length; ++i) visited[j] = value;
-        }
-    }
-
     public Van getIFurgo (int i_furgo) {return this.Furgonetas[i_furgo];}
 
     public void setEstaciones (Estaciones E) { this.Est = E;}
 
+    public Estacion getEstacion (int i) { return this.Est.get(i); }
+
     public Estado clonar () {
         Estado E = new Estado(num_ests, nbiciss, n_furgo, demandas, seeds);
         E.setganancia(this.cdesp);
-        Van [] F = new Van[n_furgo];
         for (int i = 0; i < n_furgo; ++i) {
             Van V = new Van(getIFurgo(i).getCordX(), getIFurgo(i).getCordY());
             V.setCharge(getIFurgo(i).carga());
             V.setLong_t(getIFurgo(i).getLong_t());
-            F[i] = V;
+            E.setFurgo(V, i);
         }
+
 
         Estaciones aux = new Estaciones (num_ests, nbiciss, demandas, seeds);
         for (int i = 0; i < num_ests; ++i) {
