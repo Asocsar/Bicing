@@ -21,7 +21,6 @@ public class sucesores implements SuccessorFunction {
             Estado next_Est = Est.clonar();
             if (next_Est.getIFurgo(i).carga() == 0) {
                 double coste_coger = next_Est.Coger(i, visited);
-                visited[i] = true;
                 retVal.add(new Successor("Furgoneta " + i + " coger bicis", next_Est));
             }
             else {
@@ -44,3 +43,4 @@ public class sucesores implements SuccessorFunction {
         return retVal;
     }
 }
+
