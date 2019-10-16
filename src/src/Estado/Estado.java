@@ -53,7 +53,7 @@ public class Estado {
         }
     }
 
-    public int Coger (int i_furgo, boolean[] visited) {
+    public double Coger (int i_furgo, boolean[] visited) {
         double cost = 20000;
         int x_van = Furgonetas[i_furgo].getCordX();
         int y_van = Furgonetas[i_furgo].getCordY();
@@ -69,7 +69,8 @@ public class Estado {
         if (Est.get(i_est).getNumBicicletasNoUsadas() < rest)
             rest = Est.get(i_est).getNumBicicletasNoUsadas();
         Furgonetas[i_furgo].pickUp(rest, Est.get(i_est));
-        return i_est;
+        visited[i_est] = true;
+        return coste_mov;
     }
 
 
@@ -113,11 +114,15 @@ public class Estado {
 
     public void setEstaciones (Estaciones E) { this.Est = E;}
 
-    public Estado clonar () throws CloneNotSupportedException {
+    public Estado clonar () {
         Estado E = new Estado(num_ests, nbiciss, n_furgo, demandas, seeds);
         E.setganancia(this.cdesp);
+        Van [] F = new Van[n_furgo];
         for (int i = 0; i < n_furgo; ++i) {
-            E.setFurgo((Van) this.Furgonetas[i].clone(), i);
+            Van V = new Van(getIFurgo(i).getCordX(), getIFurgo(i).getCordY());
+            V.setCharge(getIFurgo(i).carga());
+            V.setLong_t(getIFurgo(i).getLong_t());
+            F[i] = V;
         }
 
         Estaciones aux = new Estaciones (num_ests, nbiciss, demandas, seeds);

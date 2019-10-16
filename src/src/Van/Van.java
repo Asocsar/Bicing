@@ -1,7 +1,7 @@
 package Van;
 import IA.Bicing.Estacion;
 
-public class Van implements  Cloneable{
+public class Van  {
     private static int cap_max = 30;
     private int CordX;
     private int CordY;
@@ -35,7 +35,11 @@ public class Van implements  Cloneable{
         e.setNumBicicletasNoUsadas(e.getNumBicicletasNoUsadas()+number);
     }
 
+    public void setCharge (int n) {this.charge = n;}
 
+    public void setLong_t (double d) {this.long_t = d;}
+
+    public double getLong_t () {return this.long_t;}
 
     public int carga() { return this.charge; }
 
@@ -45,8 +49,6 @@ public class Van implements  Cloneable{
 
     public int getCordY () { return this.CordY; }
 
-    public Object clone() throws CloneNotSupportedException {
-        return super.clone();
-    }
+
 
 }

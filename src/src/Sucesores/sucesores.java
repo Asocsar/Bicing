@@ -10,7 +10,7 @@ import java.util.List;
 
 public class sucesores implements SuccessorFunction {
 
-    public List getSuccessors(Object state) throws CloneNotSupportedException {
+    public List getSuccessors(Object state) {
         Estado Est = (Estado) state;
         ArrayList retVal = new ArrayList();
         int n_furgo = Est.getN_furgo();
@@ -20,7 +20,7 @@ public class sucesores implements SuccessorFunction {
         for (int i = 0; i < n_furgo; ++i) {
             Estado next_Est = Est.clonar();
             if (next_Est.getIFurgo(i).carga() == 0) {
-                int i_est = next_Est.Coger(i, visited);
+                double coste_coger = next_Est.Coger(i, visited);
                 visited[i] = true;
                 retVal.add(new Successor("Furgoneta " + i + " coger bicis", next_Est));
             }

@@ -4,6 +4,6 @@ import java.util.List;
 
 public interface SuccessorFunction {
 
-	List getSuccessors(Object state) throws CloneNotSupportedException;
+	List getSuccessors(Object state) ;
 
 }
