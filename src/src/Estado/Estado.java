@@ -3,6 +3,7 @@ package Estado;
 import IA.Bicing.Estaciones;
 import IA.Bicing.Estacion;
 import Van.Van;
+import aima.util.Pair;
 
 import java.awt.color.ICC_Profile;
 import java.util.ArrayList;
@@ -16,6 +17,7 @@ public class Estado {
     private static int seeds;
     private double cdesp;
     private static int n_furgo;
+    private double demanda_total;
     private Van [] Furgonetas = new Van [n_furgo];
 
     public Estado (int num_est, int nbicis, int nfurgo, int demanda, int seed) {
@@ -26,12 +28,15 @@ public class Estado {
         nbiciss = nbicis;
         demandas = demanda;
         seeds = seed;
+        this.demanda_total = 0;
         int j_fur = 0;
         int i_est = 0;
         while (j_fur < n_furgo && i_est < num_ests) {
             Estacion E = this.Est.get(i_est);
             int x = E.getCoordX();
             int y = E.getCoordY();
+            int needed = E.getDemanda() - E.getNumBicicletasNext();
+            if (needed > 0) this.demanda_total += needed;
             this.Furgonetas[j_fur] = new Van(x,y);
             ++i_est;
             ++j_fur;
@@ -88,6 +93,7 @@ public class Estado {
     }
 
 
+    public double getDemanda_total () {return this.demanda_total;}
 
     public void setganancia (double gan) {
         this.cdesp = gan;
