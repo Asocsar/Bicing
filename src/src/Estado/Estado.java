@@ -7,6 +7,7 @@ import aima.util.Pair;
 
 import java.awt.color.ICC_Profile;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Estado {
 
@@ -17,12 +18,14 @@ public class Estado {
     private static int seeds;
     private double cdesp;
     private static int n_furgo;
+    boolean [] visited;
     //private double demanda_total;
     private Van [] Furgonetas = new Van [n_furgo];
 
     public Estado (int num_est, int nbicis, int nfurgo, int demanda, int seed) {
         this.Est = new Estaciones(num_est, nbicis, demanda, seed);
         this.cdesp = 0;
+        Arrays.fill(this.visited, false);
         num_ests = num_est;
         n_furgo = nfurgo;
         nbiciss = nbicis;
@@ -75,22 +78,25 @@ public class Estado {
 
 
     public double Dejar (int i_est, int i_furgo) {
-        double coste = 0;
-        Estacion E = (Estacion)this.Est.get(i_est);
-        coste += Furgonetas[i_furgo].move(E.getCoordX(), E.getCoordY());
-        int Dem = E.getDemanda();
-        int Curr = E.getNumBicicletasNext();
-        int dif = Dem - Curr;
-        double ganancia;
-        if (dif < Furgonetas[i_furgo].carga()) {
-            Furgonetas[i_furgo].leave(dif,E);
-            ganancia = (double) dif;
+        double coste_max = 0;
+        double max_gan = 0;
+        for (int j = 0; j < num_ests; ++j) {
+            Estacion E = (Estacion) this.Est.get(j);
+            double coste = Furgonetas[i_furgo].move(E.getCoordX(), E.getCoordY());
+            int Dem = E.getDemanda();
+            int Curr = E.getNumBicicletasNext();
+            int dif = Dem - Curr;
+            double ganancia;
+            if (dif < Furgonetas[i_furgo].carga()) {
+                Furgonetas[i_furgo].leave(dif, E);
+                ganancia = (double) dif;
+            } else {
+                Furgonetas[i_furgo].leave(Furgonetas[i_furgo].carga(), E);
+                ganancia = (double) Furgonetas[i_furgo].carga();
+            }
+            if (coste_max + max_gan < coste + ganancia) {}
         }
-        else {
-            Furgonetas[i_furgo].leave(Furgonetas[i_furgo].carga(), E);
-            ganancia = (double) Furgonetas[i_furgo].carga();
-        }
-        return coste + ganancia;
+        return coste_max + max_gan;
     }
 
 
@@ -109,6 +115,14 @@ public class Estado {
     public int getN_furgo () {return n_furgo;}
 
     public void setFurgo (Van V, int i) {this.Furgonetas[i] = V; }
+
+    public boolean getVisited (int i) {return this.visited[i];}
+
+    public void setVisited (boolean value, int i, int tots) {
+        if (tots == 1) {
+            for (int j = 0; j < this.visited.length; ++i) visited[j] = value;
+        }
+    }
 
     public Van getIFurgo (int i_furgo) {return this.Furgonetas[i_furgo];}
 
