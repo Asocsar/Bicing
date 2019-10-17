@@ -23,7 +23,7 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        Estado Bicing = new Estado(20,1250,30,1,255);
+        Estado Bicing = new Estado(25,1250,5,0,1234);
         BicingHillClimbingSearch(Bicing);
         //BicingsimulatedAnnealingSearch(Bicing);
     }
@@ -38,7 +38,9 @@ public class Main {
             System.out.println();
             Estado E = (Estado) search.getGoalState();
 
-
+            for (int i = 0; i < E.getN_furgo(); ++i) {
+                System.out.println("Recorrido por furgoneta " + E.getIFurgo(i).getLong_t());
+            }
 
         System.out.println("----INFO GENERAL----");
         int numStay ;
