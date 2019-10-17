@@ -37,9 +37,9 @@ public class Estado {
             Estacion E = this.Est.get(i_est);
             int x = E.getCoordX();
             int y = E.getCoordY();
-            int needed = E.getDemanda() - E.getNumBicicletasNext();
-            //if (needed > 0) this.demanda_total += needed;
             this.Furgonetas[j_fur] = new Van(x,y);
+            int needed =  E.getNumBicicletasNext() - E.getDemanda();
+            if (needed > 0) this.Furgonetas[j_fur].pickUp(j_fur,this.Est.get(i_est));
             ++i_est;
             ++j_fur;
         }
@@ -50,6 +50,8 @@ public class Estado {
             int x = E.getCoordX();
             int y = E.getCoordY();
             this.Furgonetas[j_fur] = new Van(x,y);
+            int needed =  E.getNumBicicletasNext() - E.getDemanda();
+            if (needed > 0) this.Furgonetas[j_fur].pickUp(j_fur,this.Est.get(i_est));
             ++i_est;
             ++j_fur;
         }
@@ -60,15 +62,18 @@ public class Estado {
         int x_van = Furgonetas[i_furgo].getCordX();
         int y_van = Furgonetas[i_furgo].getCordY();
         int max_get = 0;
+        int min_get = 0;
         int i_est = -1;
         for (int i = 0; i < num_ests; ++i) {
             int cant = Est.get(i).getNumBicicletasNext() - Est.get(i).getDemanda();
             if (cant > max_get && !visited[i]) {max_get = cant; i_est = i;}
+            if (cant < min_get && !visited[i]) {min_get = cant;}
         }
+        if (i_est == -1) return min_get;
         double coste_mov = this.Furgonetas[i_furgo].move(Est.get(i_est).getCoordX(), Est.get(i_est).getCoordY());
         int rest = this.Furgonetas[i_est].carga_max() - this.Furgonetas[i_est].carga();
         if (rest > max_get) rest = max_get;
-        if (Est.get(i_est).getNumBicicletasNoUsadas() < rest)
+        if (Est.get(i_est).getNumBicicletasNoUsadas() < rest && Est.get(i_est).getNumBicicletasNoUsadas() > 0)
             rest = Est.get(i_est).getNumBicicletasNoUsadas();
         Furgonetas[i_furgo].pickUp(rest, Est.get(i_est));
         visited[i_est] = true;
@@ -83,13 +88,14 @@ public class Estado {
         for (int i = 0; i < Est.size(); ++i) {
             Estacion E = Est.get(i);
             int cost = ((V.carga()*9)/10)*((Math.abs(V.getCordX()-E.getCoordX()) + Math.abs(V.getCordY()-E.getCoordY()))/1000);
-            int Dif = E.getDemanda() - E.getNumBicicletasNext();
+            int Dif = E.getNumBicicletasNext() - E.getDemanda();
             int ganancia = 0;
-            if (Dif < V.carga()) ganancia =  Dif;
-            else ganancia = V.carga();
+            if (Dif > V.carga_max()-V.carga()) ganancia =  V.carga_max() - V.carga();
+            else ganancia = V.carga_max() - V.carga();
             int total =  ganancia - cost;
             if (total > max_ben) {max_ben = total; i_est = i;}
         }
+        max_ben = Math.min(max_ben, V.carga());
         int cost = Furgonetas[i_furgo].move(Est.get(i_est).getCoordX(), Est.get(i_est).getCoordY());
         Furgonetas[i_furgo].leave(max_ben, Est.get(i_est));
         return max_ben - cost;
@@ -117,6 +123,8 @@ public class Estado {
     public void setEstaciones (Estaciones E) { this.Est = E;}
 
     public Estacion getEstacion (int i) { return this.Est.get(i); }
+
+    public Estaciones getEstaciones () {return this.Est;}
 
     public Estado clonar () {
         Estado E = new Estado(num_ests, nbiciss, n_furgo, demandas, seeds);

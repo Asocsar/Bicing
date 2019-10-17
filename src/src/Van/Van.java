@@ -24,13 +24,13 @@ public class Van  {
     }
 
     public void pickUp(int number, Estacion e) {
-        this.charge += number;
+        this.charge = this.charge + number;
         e.setNumBicicletasNoUsadas(e.getNumBicicletasNoUsadas()-number);
         e.setNumBicicletasNext(e.getNumBicicletasNext()-number);
     }
 
     public void leave(int number, Estacion e) {
-        this.charge -= number;
+        this.charge = this.charge - number;
         e.setNumBicicletasNext(e.getNumBicicletasNext()+number);
         e.setNumBicicletasNoUsadas(e.getNumBicicletasNoUsadas()+number);
     }
