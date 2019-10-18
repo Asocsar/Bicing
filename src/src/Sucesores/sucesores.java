@@ -69,4 +69,3 @@ public class sucesores implements SuccessorFunction {
         return retVal;
     }
 }
-
