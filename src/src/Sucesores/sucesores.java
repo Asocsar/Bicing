@@ -30,16 +30,22 @@ public class sucesores implements SuccessorFunction {
                 double ganancia = next_Est.getganancia();
                 double aux = 0;
                 for (int j = i*interval; j < interval*(i+1) && j < n_furgo; ++j) {
-                    if (accion[j%n_int] == 0) {
+                    if (accion[j%n_int] == 0 && next_Est.getaction(j)) {
                         aux += next_Est.Coger(j);
+                        next_Est.restAction(j,2);
 
                     }
-                    else if (accion[j%n_int] == 1) {
+                    else if (accion[j%n_int] == 1 && next_Est.getaction(j)) {
                         aux += next_Est.Dejar(j);
+                        next_Est.restAction(j,2);
                     }
-                    else if (accion[j%n_int] == 2 ) {
+                    else if (accion[j%n_int] == 2 && next_Est.getaction(j)) {
                         aux += next_Est.Dejar(j);
                         aux += next_Est.Dejar(j);
+                        next_Est.restAction(j,2);
+                    }
+                    else if (accion[j%n_int] == 3) {
+                        next_Est.restAction(j,next_Est.getrest(j));
                     }
                 }
                 ganancia += aux;

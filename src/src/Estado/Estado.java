@@ -16,6 +16,8 @@ public class Estado {
     private static int seeds;
     private double cdesp;
     private static int n_furgo;
+    private boolean [] action;
+    private int [] quedan;
     private boolean [] visited;
     private Van [] Furgonetas;
 
@@ -23,7 +25,11 @@ public class Estado {
         this.Est = new Estaciones(num_est, nbicis, demanda, seed);
         this.cdesp = 0;
         this.visited = new boolean[num_est];
+        this.action = new boolean[nfurgo];
+        this.quedan = new int[nfurgo];
+        Arrays.fill(this.action, true);
         Arrays.fill(this.visited, false);
+        Arrays.fill(quedan, 2);
         num_ests = num_est;
         n_furgo = nfurgo;
         nbiciss = nbicis;
@@ -112,6 +118,15 @@ public class Estado {
     public double getganancia () {return this.cdesp;}
 
     public int getNum_est () {return num_ests;}
+
+    public void restAction (int j, int n) {
+        this.quedan[j] = this.quedan[j] - n;
+        if (this.quedan[j] == 0) this.action[j] = false;
+    }
+
+    public int getrest (int j) {return this.quedan[j];}
+
+    public boolean getaction (int j) {return this.action[j];}
 
     public void setNum_est (int n) {num_ests = n;}
 
