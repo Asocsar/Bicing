@@ -27,7 +27,7 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        Estado Bicing = new Estado(25,1250,10,0,1234);
+        Estado Bicing = new Estado(25,1250,5,0,1234);
         BicingHillClimbingSearch(Bicing);
         BicingsimulatedAnnealingSearch(Bicing);
     }
