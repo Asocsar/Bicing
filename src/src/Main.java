@@ -28,7 +28,11 @@ public class Main {
 
     public static void main(String[] args) {
         Estado Bicing = new Estado(25,1250,5,0,1234);
+        long StartTime = System.nanoTime();
         BicingHillClimbingSearch(Bicing);
+        long EndTime = System.nanoTime();
+        //System.out.println("Execution in nanoseconds " + (EndTime-StartTime));
+        System.out.println("Execution in Miliseconds " + (EndTime-StartTime)/1000000);
         BicingsimulatedAnnealingSearch(Bicing);
     }
 
@@ -43,56 +47,10 @@ public class Main {
             Estado E = (Estado) search.getGoalState();
 
             for (int i = 0; i < E.getN_furgo(); ++i) {
-                System.out.println("Recorrido por furgoneta " + E.getIFurgo(i).getLong_t());
+                System.out.println("Recorrido por furgoneta " + i + " " + E.getIFurgo(i).getLong_t());
             }
 
-            System.out.println("----INFO GENERAL----");
-            int numStay ;
-            int numCurr ;
-            int numDem ;
-            int sumBic = 0;
-            int sumDem = 0;
-            int sumAvai = 0;
-            int sumNeed = 0;
-            Estaciones b = E.getEstaciones();
-            double[] stdDem = new double[b.size()];
-            double[] stdStay = new double[b.size()];
-            double[] stdCurr = new double[b.size()];
-            System.out.println("Sta Cur Dem Dif Exc ");
-
-            for(int i = 0; i < b.size(); ++i) {
-                numStay = ((Estacion)b.get(i)).getNumBicicletasNoUsadas();
-                numCurr = ((Estacion)b.get(i)).getNumBicicletasNext();
-                numDem = ((Estacion)b.get(i)).getDemanda();
-                stdStay[i] = (double)numStay;
-                stdCurr[i] = (double)numCurr;
-                stdDem[i] = (double)numDem;
-                sumBic += numCurr;
-                sumDem += numDem;
-                int balance = numCurr - numDem;
-                int mover;
-                if (balance > 0) {
-                    if (balance > numStay) {
-                        mover = numStay;
-                    } else {
-                        mover = balance;
-                    }
-
-                    sumAvai += mover;
-                } else {
-                    mover = 0;
-                    sumNeed -= balance;
-                }
-
-                System.out.format("est %2d = %2d %2d\n", i, ((Estacion)b.get(i)).getCoordX(), ((Estacion)b.get(i)).getCoordY());
-                System.out.format("%3d %3d %3d %3d %3d\n", numStay, numCurr, numDem, balance, mover);
-            }
-
-            System.out.format("\nBicis= %3d Demanda= %3d Disponibles= %3d Necesitan= %3d\n\n", sumBic, sumDem, sumAvai, sumNeed);
-
-
-
-
+           // printEstado(E);
             printActions(agent.getActions());
             printInstrumentation(agent.getInstrumentation());
         } catch (Exception var4) {
@@ -111,56 +69,9 @@ public class Main {
             Estado E = (Estado) search.getGoalState();
 
             for (int i = 0; i < E.getN_furgo(); ++i) {
-                System.out.println("Recorrido por furgoneta " + E.getIFurgo(i).getLong_t());
+                System.out.println("Recorrido por furgoneta " + i + " " + E.getIFurgo(i).getLong_t());
             }
-
-            System.out.println("----INFO GENERAL----");
-            int numStay ;
-            int numCurr ;
-            int numDem ;
-            int sumBic = 0;
-            int sumDem = 0;
-            int sumAvai = 0;
-            int sumNeed = 0;
-            Estaciones b = E.getEstaciones();
-            double[] stdDem = new double[b.size()];
-            double[] stdStay = new double[b.size()];
-            double[] stdCurr = new double[b.size()];
-            System.out.println("Sta Cur Dem Dif Exc ");
-
-            for(int i = 0; i < b.size(); ++i) {
-                numStay = ((Estacion)b.get(i)).getNumBicicletasNoUsadas();
-                numCurr = ((Estacion)b.get(i)).getNumBicicletasNext();
-                numDem = ((Estacion)b.get(i)).getDemanda();
-                stdStay[i] = (double)numStay;
-                stdCurr[i] = (double)numCurr;
-                stdDem[i] = (double)numDem;
-                sumBic += numCurr;
-                sumDem += numDem;
-                int balance = numCurr - numDem;
-                int mover;
-                if (balance > 0) {
-                    if (balance > numStay) {
-                        mover = numStay;
-                    } else {
-                        mover = balance;
-                    }
-
-                    sumAvai += mover;
-                } else {
-                    mover = 0;
-                    sumNeed -= balance;
-                }
-
-                System.out.format("est %2d = %2d %2d\n", i, ((Estacion)b.get(i)).getCoordX(), ((Estacion)b.get(i)).getCoordY());
-                System.out.format("%3d %3d %3d %3d %3d\n", numStay, numCurr, numDem, balance, mover);
-            }
-
-            System.out.format("\nBicis= %3d Demanda= %3d Disponibles= %3d Necesitan= %3d\n\n", sumBic, sumDem, sumAvai, sumNeed);
-
-
-
-
+            printEstado(E);
             System.out.println();
             System.out.println(E.getganancia());
             //printActions(agent.getActions());
@@ -187,6 +98,54 @@ public class Main {
             String action = (String)actions.get(i);
             System.out.println(action);
         }
+
+    }
+
+
+    public static  void printEstado (Estado E) {
+        System.out.println("----INFO GENERAL----");
+        int numStay ;
+        int numCurr ;
+        int numDem ;
+        int sumBic = 0;
+        int sumDem = 0;
+        int sumAvai = 0;
+        int sumNeed = 0;
+        Estaciones b = E.getEstaciones();
+        double[] stdDem = new double[b.size()];
+        double[] stdStay = new double[b.size()];
+        double[] stdCurr = new double[b.size()];
+        System.out.println("Sta Cur Dem Dif Exc ");
+
+        for(int i = 0; i < b.size(); ++i) {
+            numStay = ((Estacion)b.get(i)).getNumBicicletasNoUsadas();
+            numCurr = ((Estacion)b.get(i)).getNumBicicletasNext();
+            numDem = ((Estacion)b.get(i)).getDemanda();
+            stdStay[i] = (double)numStay;
+            stdCurr[i] = (double)numCurr;
+            stdDem[i] = (double)numDem;
+            sumBic += numCurr;
+            sumDem += numDem;
+            int balance = numCurr - numDem;
+            int mover;
+            if (balance > 0) {
+                if (balance > numStay) {
+                    mover = numStay;
+                } else {
+                    mover = balance;
+                }
+
+                sumAvai += mover;
+            } else {
+                mover = 0;
+                sumNeed -= balance;
+            }
+
+            System.out.format("est %2d = %2d %2d\n", i, ((Estacion)b.get(i)).getCoordX(), ((Estacion)b.get(i)).getCoordY());
+            System.out.format("%3d %3d %3d %3d %3d\n", numStay, numCurr, numDem, balance, mover);
+        }
+
+        System.out.format("\nBicis= %3d Demanda= %3d Disponibles= %3d Necesitan= %3d\n\n", sumBic, sumDem, sumAvai, sumNeed);
 
     }
 }
