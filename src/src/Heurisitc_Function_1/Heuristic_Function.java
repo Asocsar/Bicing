@@ -1,8 +1,5 @@
 package Heurisitc_Function_1;
-
 import Estado.Estado;
-import IA.Bicing.Estacion;
-import IA.Bicing.Estaciones;
 import aima.search.framework.HeuristicFunction;
 
 public class Heuristic_Function implements HeuristicFunction {

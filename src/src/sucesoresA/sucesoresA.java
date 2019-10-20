@@ -1,6 +1,5 @@
 package sucesoresA;
 import Estado.Estado;
-import Heurisitc_Function_1.Heuristic_Function;
 import aima.search.framework.Successor;
 import aima.search.framework.SuccessorFunction;
 
@@ -20,28 +19,23 @@ public class sucesoresA implements SuccessorFunction {
         Estado next_Est = Est.clonar();
         double gan = Est.getganancia();
         double ingres = 0;
-        do {
-            next_Est = Est.clonar();
-            ingres = 0;
-            for (int i = 0; i < n_furgo; ++i) {
-                int decision = myRandom.nextInt(4);
-                if (decision == 0 ) {
-                    ingres -= next_Est.Coger(i);
-                    next_Est.restAction(i, 2);
-                } else if (decision == 1 ) {
-                    ingres += next_Est.Dejar(i);
-                    next_Est.restAction(i, 2);
-                } else if (decision == 2 ) {
-                    ingres += next_Est.Dejar(i);
-                    ingres += next_Est.Dejar(i);
-                    next_Est.restAction(i, 2);
-                }
+        for (int i = 0; i < n_furgo; ++i) {
+            int decision = myRandom.nextInt(4);
+            if (decision == 0 ) {
+                ingres -= next_Est.Coger(i);
+                next_Est.restAction(i, 2);
+            } else if (decision == 1 ) {
+                ingres += next_Est.Dejar(i);
+                next_Est.restAction(i, 2);
+            } else if (decision == 2 ) {
+                ingres += next_Est.Dejar(i);
+                ingres += next_Est.Dejar(i);
+                next_Est.restAction(i, 2);
             }
         }
-        while (ingres + gan < 0);
         next_Est.setganancia(gan+ingres);
-        retVal.add(new Successor("Beneficio de " + next_Est.getganancia(), next_Est));
-
+        if (next_Est.getganancia() >= 0) retVal.add(new Successor("Beneficio de " + next_Est.getganancia(), next_Est));
+        else retVal.add(new Successor("Beneficio de " + Est.getganancia(), Est));
         return retVal;
     }
 }

@@ -31,9 +31,11 @@ public class Main {
         long StartTime = System.nanoTime();
         BicingHillClimbingSearch(Bicing);
         long EndTime = System.nanoTime();
-        //System.out.println("Execution in nanoseconds " + (EndTime-StartTime));
         System.out.println("Execution in Miliseconds " + (EndTime-StartTime)/1000000);
+        StartTime = System.nanoTime();
         BicingsimulatedAnnealingSearch(Bicing);
+        EndTime = System.nanoTime();
+        System.out.println("Execution in Miliseconds " + (EndTime-StartTime)/1000000);
     }
 
     private static void BicingHillClimbingSearch(Estado TSPB) {
@@ -50,7 +52,7 @@ public class Main {
                 System.out.println("Recorrido por furgoneta " + i + " " + E.getIFurgo(i).getLong_t());
             }
 
-           // printEstado(E);
+            //printEstado(E);
             printActions(agent.getActions());
             printInstrumentation(agent.getInstrumentation());
         } catch (Exception var4) {
@@ -71,7 +73,7 @@ public class Main {
             for (int i = 0; i < E.getN_furgo(); ++i) {
                 System.out.println("Recorrido por furgoneta " + i + " " + E.getIFurgo(i).getLong_t());
             }
-            printEstado(E);
+            //printEstado(E);
             System.out.println();
             System.out.println(E.getganancia());
             //printActions(agent.getActions());
