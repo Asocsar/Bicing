@@ -32,6 +32,7 @@ public class sucesores implements SuccessorFunction {
                 for (int j = i*interval; j < interval*(i+1) && j < n_furgo; ++j) {
                     if (accion[j%n_int] == 0 ) {
                         aux -= next_Est.Coger(j);
+                        //next_Est.Coger(j);
                         next_Est.restAction(j,2);
 
                     }

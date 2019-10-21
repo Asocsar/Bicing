@@ -16,6 +16,7 @@ public class Heuristic_Function implements HeuristicFunction {
     public double getHeuristicValue(Object state) {
         double coste = 0;
         Estado E = (Estado) state;
+
         for (int i = 0; i < E.getNum_est(); ++i) {
             int n = E.getEstacion(i).getNumBicicletasNext() - E.getEstacion(i).getDemanda();
             int ncog = E.getEstacion(i).getNumBicicletasNoUsadas();
@@ -24,7 +25,8 @@ public class Heuristic_Function implements HeuristicFunction {
 
             coste += ncog*0.2;
         }
-        if (E.getganancia() != 0) coste = - E.getganancia()*2;
+        if (E.getganancia() < 0) coste *=  (-E.getganancia())*2;
+        else  coste -= E.getganancia();
 
         return (coste);
     }

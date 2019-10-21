@@ -38,7 +38,7 @@ public class Estado {
         this.Furgonetas = new Van [n_furgo];
         int j_fur = 0;
         int i_est = 0;
-        int parte = 1;
+        int parte = 8;
         while (j_fur < n_furgo && i_est < num_ests) {
             Estacion E = this.Est.get(i_est);
             int x = E.getCoordX();
