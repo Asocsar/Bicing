@@ -25,8 +25,7 @@ public class Heuristic_Function implements HeuristicFunction {
 
             coste += ncog*0.2;
         }
-        if (E.getganancia() < 0) coste *=  (-E.getganancia())*2;
-        else  coste -= E.getganancia();
+        if (E.getganancia() != 0) coste -=  E.getganancia()*2;
 
         return (coste);
     }
