@@ -49,7 +49,7 @@ public class Main {
             Estado E = (Estado) search.getGoalState();
 
             for (int i = 0; i < E.getN_furgo(); ++i) {
-                System.out.println("Recorrido por furgoneta " + i + " " + E.getIFurgo(i).getLong_t());
+                System.out.println("Recorrido por furgoneta " + i + "  " + E.getIFurgo(i).getLong_t());
             }
 
             //printEstado(E);
@@ -71,7 +71,7 @@ public class Main {
             Estado E = (Estado) search.getGoalState();
 
             for (int i = 0; i < E.getN_furgo(); ++i) {
-                System.out.println("Recorrido por furgoneta " + i + " " + E.getIFurgo(i).getLong_t());
+                System.out.println("Recorrido por furgoneta " + i + "  " + E.getIFurgo(i).getLong_t());
             }
             //printEstado(E);
             System.out.println();
