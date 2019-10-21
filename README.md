@@ -1,3 +1,3 @@
 # Bicing
 
-IA project, probando
+IA project
