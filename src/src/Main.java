@@ -27,7 +27,7 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        Estado Bicing = new Estado(25,1250,5,0,1234);
+        Estado Bicing = new Estado(30,1500,15,1,1001);
         long StartTime = System.nanoTime();
         BicingHillClimbingSearch(Bicing);
         long EndTime = System.nanoTime();
