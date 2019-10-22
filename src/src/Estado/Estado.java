@@ -16,20 +16,16 @@ public class Estado {
     private static int seeds;
     private double cdesp;
     private static int n_furgo;
-    private boolean [] action;
-    private int [] quedan;
     private boolean [] visited;
     private Van [] Furgonetas;
+
+    public Estado () {}
 
     public Estado (int num_est, int nbicis, int nfurgo, int demanda, int seed) {
         this.Est = new Estaciones(num_est, nbicis, demanda, seed);
         this.cdesp = 0;
         this.visited = new boolean[num_est];
-        this.action = new boolean[nfurgo];
-        this.quedan = new int[nfurgo];
-        Arrays.fill(this.action, true);
         Arrays.fill(this.visited, false);
-        Arrays.fill(quedan, 2);
         num_ests = num_est;
         n_furgo = nfurgo;
         nbiciss = nbicis;
@@ -109,33 +105,20 @@ public class Estado {
 
 
 
-    public void setganancia (double gan) {
-        this.cdesp = gan;
-    }
+    public void setganancia (double gan) { this.cdesp = gan; }
 
     public double getganancia () {return this.cdesp;}
 
     public int getNum_est () {return num_ests;}
 
-    public void restAction (int j, int n) {
-        this.quedan[j] = this.quedan[j] - n;
-        if (this.quedan[j] == 0) this.action[j] = false;
-    }
-
-    public boolean [] getAllAction () {return this.action;}
-
-    public void setAction (boolean [] a) {
-        for (int i = 0; i < a.length; ++i) {
-            boolean aux = a[i];
-            this.action[i] = aux;
+    private void setNum_est (int n, boolean [] v) {
+        num_ests = n;
+        this.visited = new boolean[num_ests];
+        for (int i = 0; i < v.length; ++i) {
+            boolean a = v[i];
+            this.visited[i] = a;
         }
     }
-
-    public int getrest (int j) {return this.quedan[j];}
-
-    public boolean getaction (int j) {return this.action[j];}
-
-    public void setNum_est (int n) {num_ests = n;}
 
     public int getN_furgo () {return n_furgo;}
 
@@ -145,23 +128,28 @@ public class Estado {
 
     public void setEstaciones (Estaciones E) { this.Est = E;}
 
-    public void setQuedan (int[] q) {
-        for (int i = 0; i < q.length; ++i) {
-            int aux = q[i];
-            this.quedan[i] = aux;
-        }
+    public Estacion getEstacion (int i) { return this.Est.get(i); }
+
+    private void setNbiciss(int n) {nbiciss = n;}
+
+    private void setN_furgo(int n) {
+        n_furgo = n;
+        this.Furgonetas = new Van[n_furgo];
     }
 
-    public int [] getQuedan () {return this.quedan;}
+    private void setDemandas(int n) {demandas = n;}
 
-    public Estacion getEstacion (int i) { return this.Est.get(i); }
+    private void setSeeds (int n) {seeds = n;}
 
     public Estaciones getEstaciones () {return this.Est;}
 
     public Estado clonar () {
-        Estado E = new Estado(num_ests, nbiciss, n_furgo, demandas, seeds);
-        E.setQuedan(this.quedan);
-        E.setAction(this.action);
+        Estado E = new Estado();
+        E.setNum_est(num_ests, this.visited);
+        E.setNbiciss(nbiciss);
+        E.setN_furgo(n_furgo);
+        E.setDemandas(demandas);
+        E.setSeeds(seeds);
         E.setganancia(this.cdesp);
         for (int i = 0; i < n_furgo; ++i) {
             Van V = new Van(getIFurgo(i).getCordX(), getIFurgo(i).getCordY());

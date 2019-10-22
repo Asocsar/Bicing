@@ -23,14 +23,11 @@ public class sucesoresA implements SuccessorFunction {
             int decision = myRandom.nextInt(4);
             if (decision == 0 ) {
                 ingres -= next_Est.Coger(i);
-                next_Est.restAction(i, 2);
             } else if (decision == 1 ) {
                 ingres += next_Est.Dejar(i);
-                next_Est.restAction(i, 2);
             } else if (decision == 2 ) {
                 ingres += next_Est.Dejar(i);
                 ingres += next_Est.Dejar(i);
-                next_Est.restAction(i, 2);
             }
         }
         next_Est.setganancia(gan+ingres);
