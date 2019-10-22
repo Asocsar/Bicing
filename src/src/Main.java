@@ -27,13 +27,13 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        Estado Bicing = new Estado(30,1500,15,1,1001);
+        Estado Bicing = new Estado(30,1500,15,0,1001);
         long StartTime = System.nanoTime();
         BicingHillClimbingSearch(Bicing);
         long EndTime = System.nanoTime();
         System.out.println("Execution in Miliseconds " + (EndTime-StartTime)/1000000);
         StartTime = System.nanoTime();
-       // BicingsimulatedAnnealingSearch(Bicing);
+        BicingsimulatedAnnealingSearch(Bicing);
         EndTime = System.nanoTime();
         System.out.println("Execution in Miliseconds " + (EndTime-StartTime)/1000000);
     }

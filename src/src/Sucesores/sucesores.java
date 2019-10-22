@@ -33,17 +33,14 @@ public class sucesores implements SuccessorFunction {
                     if (accion[j%n_int] == 0 ) {
                         aux -= next_Est.Coger(j);
                         //next_Est.Coger(j);
-                        next_Est.restAction(j,2);
 
                     }
                     else if (accion[j%n_int] == 1 ) {
                         aux += next_Est.Dejar(j);
-                        next_Est.restAction(j,2);
                     }
                     else if (accion[j%n_int] == 2 ) {
                         aux += next_Est.Dejar(j);
                         aux += next_Est.Dejar(j);
-                        next_Est.restAction(j,2);
                     }
                 }
                 ganancia += aux;
