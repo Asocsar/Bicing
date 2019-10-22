@@ -3,6 +3,7 @@ package Estado;
 import IA.Bicing.Estaciones;
 import IA.Bicing.Estacion;
 import Van.Van;
+import aima.util.Pair;
 
 
 import java.util.Arrays;
@@ -36,34 +37,71 @@ public class Estado {
         demandas = demanda;
         seeds = seed;
         this.Furgonetas = new Van [n_furgo];
-        int j_fur = 0;
-        int i_est = 0;
         int parte = 1;
-        while (j_fur < n_furgo && i_est < num_ests) {
-            Estacion E = this.Est.get(i_est);
-            int x = E.getCoordX();
-            int y = E.getCoordY();
-            this.Furgonetas[j_fur] = new Van(x,y);
-            int needed =  E.getNumBicicletasNext() - E.getDemanda();
-            needed = Math.min(needed, E.getNumBicicletasNoUsadas()/parte);
-            needed = Math.min(needed, (this.Furgonetas[j_fur].carga_max() - this.Furgonetas[j_fur].carga()));
-            if (needed > 0 ) this.Furgonetas[j_fur].pickUp(needed,this.Est, i_est);
-            ++i_est;
-            ++j_fur;
+        int max = 0;
+        Pair [] X = new Pair [num_est];
+        Pair [] F = new Pair [num_est];
+
+        for (int i = 0; i < num_est; ++i) {
+            int needed =  Est.get(i).getNumBicicletasNext() - Est.get(i).getDemanda();
+            needed = Math.min(needed, Est.get(i).getNumBicicletasNoUsadas());
+            if (needed > 0) X[i] = new Pair(i, needed);
+            if (needed > max) max = needed;
+        }
+
+        int [] L = new int [max+1];
+        Arrays.fill(L, 0);
+
+        for (int i = 0; i < num_est; ++i) {
+            if (X[i] != null) L[X[i].getSecond()] += 1;
+        }
+
+        for (int i = 1; i < max; ++i) {
+            L[i] = L[i] + L[i-1];
+        }
+
+        for (int i = num_est-1; i >= 0; --i) {
+            if (X[i] != null) {
+                F[L[X[i].getSecond()]] = new Pair(X[i].getFirst(), X[i].getSecond());
+                L[X[i].getSecond()] -= 1;
+            }
+        }
+
+        /*for (int i = 0; i < num_est; ++i) {
+            if (F[i] != null) System.out.println(F[i].toString());
+        }*/
+
+        int j_fur = 0;
+        int i_sig = num_est-1;
+        while (j_fur < n_furgo && i_sig >= 0) {
+            if (F[i_sig] != null) {
+                int i_est = F[i_sig].getFirst();
+                int cant = F[i_sig].getSecond();
+                Estacion E = this.Est.get(i_est);
+                int x = E.getCoordX();
+                int y = E.getCoordY();
+                this.Furgonetas[j_fur] = new Van(x, y);
+                int needed = Math.min(cant, (this.Furgonetas[j_fur].carga_max() - this.Furgonetas[j_fur].carga()));
+                if (needed > 0) this.Furgonetas[j_fur].pickUp(needed, this.Est, i_est);
+                ++j_fur;
+            }
+            --i_sig;
         }
 
         while (j_fur < n_furgo) {
-            i_est = i_est % num_est;
-            Estacion E = this.Est.get(i_est);
-            int x = E.getCoordX();
-            int y = E.getCoordY();
-            this.Furgonetas[j_fur] = new Van(x,y);
-            int needed =  E.getNumBicicletasNext() - E.getDemanda();
-            needed = Math.min(needed, E.getNumBicicletasNoUsadas()/parte);
-            needed = Math.min(needed, (this.Furgonetas[j_fur].carga_max() - this.Furgonetas[j_fur].carga()));
-            if (needed > 0) this.Furgonetas[j_fur].pickUp(needed,this.Est, i_est);
-            ++i_est;
-            ++j_fur;
+            if (i_sig < 0) i_sig = num_est - 1;
+            if (F[i_sig] != null) {
+                int i_est = F[i_sig].getFirst();
+                int cant = F[i_sig].getSecond();
+                Estacion E = this.Est.get(i_est);
+                int x = E.getCoordX();
+                int y = E.getCoordY();
+                this.Furgonetas[j_fur] = new Van(x, y);
+                int needed = Math.min(cant, (this.Furgonetas[j_fur].carga_max() - this.Furgonetas[j_fur].carga()));
+                if (needed > 0) this.Furgonetas[j_fur].pickUp(needed, this.Est, i_est);
+                ++j_fur;
+            }
+            --i_sig;
         }
     }
 

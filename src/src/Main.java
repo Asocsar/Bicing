@@ -33,7 +33,7 @@ public class Main {
         long EndTime = System.nanoTime();
         System.out.println("Execution in Miliseconds " + (EndTime-StartTime)/1000000);
         StartTime = System.nanoTime();
-        BicingsimulatedAnnealingSearch(Bicing);
+       // BicingsimulatedAnnealingSearch(Bicing);
         EndTime = System.nanoTime();
         System.out.println("Execution in Miliseconds " + (EndTime-StartTime)/1000000);
     }
