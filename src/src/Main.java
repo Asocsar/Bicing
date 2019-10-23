@@ -18,26 +18,24 @@ import aima.search.informed.HillClimbingSearch;
 import aima.search.informed.SimulatedAnnealingSearch;
 import sucesoresA.sucesoresA;
 
+import java.io.*;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
 
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.Writer;
 import java.util.Random;
 
 public class Main {
     public Main() {
     }
 
-    public static void main(String[] args) {
-        Random R = new Random();
+    public static void main(String[] args) throws IOException {
+        File file = new File("Sedds.txt");
+        BufferedReader br = new BufferedReader(new FileReader(file));
         for (int i = 0; i < 100; ++i) {
-            System.out.println(i);
-            int s = R.nextInt(1500);
-            Estado Bicing = new Estado(30, 1500, 15, 0, s);
+            int s = Integer.parseInt(br.readLine());
+            Estado Bicing = new Estado(30, 1500, 15, 1, s);
             BicingHillClimbingSearch(Bicing);
         }
         /*StartTime = System.nanoTime();
@@ -54,12 +52,11 @@ public class Main {
             Problem problem = new Problem(TSPB, new sucesores(), new isGoal(), new Heuristic_Function());
             Search search = new HillClimbingSearch();
             SearchAgent agent = new SearchAgent(problem, search);
-            System.out.println();
             Estado E = (Estado) search.getGoalState();
             long EndTime = System.nanoTime();
             long time = ((EndTime-StartTime)/1000000);
             Writer output;
-            output = new BufferedWriter(new FileWriter("Estadisticas_D0_H1.txt", true));
+            output = new BufferedWriter(new FileWriter("Estadisticas_D1_H1.txt", true));
             Properties properties = agent.getInstrumentation();
             String sep = "\t\t";
             String S = E.getganancia() + sep + time + sep + properties.getProperty((String)properties.keySet().iterator().next());
