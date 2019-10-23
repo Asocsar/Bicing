@@ -5,7 +5,8 @@
 
 import Estado.Estado;
 import Check.isGoal;
-import Heurisitc_Function_1.Heuristic_Function;
+//import Heurisitc_Function_1.Heuristic_Function;
+import Heuristic_Function_2.Heuristic_Function;
 import IA.Bicing.Estaciones;
 import IA.Bicing.Estacion;
 import Sucesores.sucesores;

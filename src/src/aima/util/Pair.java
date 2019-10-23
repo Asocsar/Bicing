@@ -1,19 +1,19 @@
 package aima.util;
 
 public class Pair {
-	Object first;
+	private int first;
 
-	Object second;
+	private int second;
 
-	public Object getFirst() {
+	public int getFirst() {
 		return first;
 	}
 
-	public Object getSecond() {
+	public int getSecond() {
 		return second;
 	}
 
-	public Pair(Object a, Object b) {
+	public Pair(int a, int b) {
 		first = a;
 		second = b;
 	}
@@ -23,6 +23,6 @@ public class Pair {
 	}
 
 	public String toString() {
-		return "( " + first.toString() + " , " + second.toString() + " ) ";
+		return "( " + first + " , " + second + " ) ";
 	}
 }
