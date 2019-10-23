@@ -58,7 +58,7 @@ public class Estado {
 
         for (int i = num_est-1; i >= 0; --i) {
             if (X[i] != null) {
-                F[L[X[i].getSecond()]] = new Pair(X[i].getFirst(), X[i].getSecond());
+                F[L[X[i].getSecond()]-1] = new Pair(X[i].getFirst(), X[i].getSecond());
                 L[X[i].getSecond()] -= 1;
             }
         }
