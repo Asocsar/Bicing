@@ -26,14 +26,20 @@ import java.util.Properties;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.Writer;
+import java.util.Random;
 
 public class Main {
     public Main() {
     }
 
     public static void main(String[] args) {
-        Estado Bicing = new Estado(30,1500,15,0,1001);
-        BicingHillClimbingSearch(Bicing);
+        Random R = new Random();
+        for (int i = 0; i < 100; ++i) {
+            System.out.println(i);
+            int s = R.nextInt(1500);
+            Estado Bicing = new Estado(30, 1500, 15, 0, s);
+            BicingHillClimbingSearch(Bicing);
+        }
         /*StartTime = System.nanoTime();
         BicingsimulatedAnnealingSearch(Bicing);
         EndTime = System.nanoTime();
@@ -41,7 +47,7 @@ public class Main {
     }
 
     private static void BicingHillClimbingSearch(Estado TSPB) {
-        System.out.println("\nTSP HillClimbing  -->");
+
 
         try {
             long StartTime = System.nanoTime();
@@ -51,11 +57,12 @@ public class Main {
             System.out.println();
             Estado E = (Estado) search.getGoalState();
             long EndTime = System.nanoTime();
-            System.out.println("Execution in Miliseconds " + (EndTime-StartTime)/1000000);
+            long time = ((EndTime-StartTime)/1000000);
             Writer output;
-            output = new BufferedWriter(new FileWriter("Estadisticas.txt", true));
+            output = new BufferedWriter(new FileWriter("Estadisticas_D0_H1.txt", true));
             Properties properties = agent.getInstrumentation();
-            String S = E.getganancia() + " " + (EndTime-StartTime/1000000) + " " + properties.getProperty((String)properties.keySet().iterator().next());
+            String sep = "\t\t";
+            String S = E.getganancia() + sep + time + sep + properties.getProperty((String)properties.keySet().iterator().next());
             S = S + '\n';
             output.append(S);
             output.close();
