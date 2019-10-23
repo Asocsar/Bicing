@@ -1,7 +1,7 @@
 package Van;
 import IA.Bicing.Estaciones;
 
-public class Van  {
+public class Van {
     private static int cap_max = 30;
     private int CordX;
     private int CordY;
@@ -49,7 +49,5 @@ public class Van  {
     public int getCordX () { return this.CordX; }
 
     public int getCordY () { return this.CordY; }
-
-
 
 }
