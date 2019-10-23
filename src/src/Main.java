@@ -35,7 +35,7 @@ public class Main {
         BufferedReader br = new BufferedReader(new FileReader(file));
         for (int i = 0; i < 100; ++i) {
             int s = Integer.parseInt(br.readLine());
-            Estado Bicing = new Estado(30, 1500, 15, 1, s);
+            Estado Bicing = new Estado(30, 1500, 15, 0, s);
             BicingHillClimbingSearch(Bicing);
         }
         /*StartTime = System.nanoTime();
@@ -56,9 +56,9 @@ public class Main {
             long EndTime = System.nanoTime();
             long time = ((EndTime-StartTime)/1000000);
             Writer output;
-            output = new BufferedWriter(new FileWriter("Estadisticas_D1_H1.txt", true));
+            output = new BufferedWriter(new FileWriter("Estadisticas_D0_H1.txt", true));
             Properties properties = agent.getInstrumentation();
-            String sep = "\t\t";
+            String sep = ",";
             String S = E.getganancia() + sep + time + sep + properties.getProperty((String)properties.keySet().iterator().next());
             S = S + '\n';
             output.append(S);
