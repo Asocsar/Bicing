@@ -65,8 +65,20 @@ public class Main {
         System.out.println("Execution in Miliseconds " + (EndTime-StartTime)/1000000);*/
     }
 
-    public static void pruebaR () {
-
+    public static void pruebaR () throws IOException {
+        File file = new File("Seeds.txt");
+        BufferedReader br = new BufferedReader(new FileReader(file));
+        for (int i = 0; i < 100; ++i) {
+            int s = Integer.parseInt(br.readLine());
+            Estado Bicing = new Estado(30, 1500, 15, 0, s, 2);
+            BicingHillClimbingSearch(Bicing);
+        }
+        /*
+        System.out.println("Execution in Miliseconds " + (EndTime-StartTime)/1000000);
+        StartTime = System.nanoTime();
+        //BicingsimulatedAnnealingSearch(Bicing);
+        EndTime = System.nanoTime();
+        System.out.println("Execution in Miliseconds " + (EndTime-StartTime)/1000000);*/
     }
 
     private static void BicingHillClimbingSearch(Estado TSPB) {
