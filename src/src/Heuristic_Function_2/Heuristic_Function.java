@@ -1,11 +1,10 @@
 package Heuristic_Function_2;
 
-import Estado.Estado;
+import Estado.Estado_g;
 import IA.Bicing.Estacion;
 import Van.Van;
 import aima.search.framework.HeuristicFunction;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
 
 public class Heuristic_Function implements HeuristicFunction {
@@ -20,7 +19,7 @@ public class Heuristic_Function implements HeuristicFunction {
 
 
     public double getHeuristicValue(Object state) {
-        Estado E = (Estado) state;
+        Estado_g E = (Estado_g) state;
         int coste = 0;
         for (int i = 0; i < E.getNum_est(); ++i) {
             coste += E.getEstacion(i).getNumBicicletasNoUsadas();

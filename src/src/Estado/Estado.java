@@ -8,7 +8,7 @@ import aima.util.Pair;
 
 import java.util.Arrays;
 
-public class Estado {
+public class Estado_g {
 
     private Estaciones Est;
     private static int num_ests;
@@ -20,9 +20,9 @@ public class Estado {
     private boolean [] visited;
     private Van [] Furgonetas;
 
-    public Estado () {}
+    public Estado_g () {}
 
-    public Estado (int num_est, int nbicis, int nfurgo, int demanda, int seed) {
+    public Estado_g (int num_est, int nbicis, int nfurgo, int demanda, int seed) {
         this.Est = new Estaciones(num_est, nbicis, demanda, seed);
         this.cdesp = 0;
         this.visited = new boolean[num_est];
@@ -177,8 +177,8 @@ public class Estado {
 
     public Estaciones getEstaciones () {return this.Est;}
 
-    public Estado clonar () {
-        Estado E = new Estado();
+    public Estado_g clonar () {
+        Estado_g E = new Estado_g();
         E.setNum_est(num_ests, this.visited);
         E.setNbiciss(nbiciss);
         E.setN_furgo(n_furgo);

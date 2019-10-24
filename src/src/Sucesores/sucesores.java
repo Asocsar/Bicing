@@ -1,7 +1,7 @@
 package Sucesores;
 import aima.search.framework.Successor;
 import aima.search.framework.SuccessorFunction;
-import Estado.Estado;
+import Estado.Estado_g;
 
 
 import java.util.ArrayList;
@@ -11,7 +11,7 @@ import java.util.List;
 public class sucesores implements SuccessorFunction {
 
     public List getSuccessors(Object state) {
-        Estado Est = (Estado) state;
+        Estado_g Est = (Estado_g) state;
         ArrayList retVal = new ArrayList();
         int n_furgo = Est.getN_furgo();
         int n_est = Est.getNum_est();
@@ -26,7 +26,7 @@ public class sucesores implements SuccessorFunction {
             int suma = 0;
             while (suma <= interval*n_acc) {
                 suma = 0;
-                Estado next_Est = Est.clonar();
+                Estado_g next_Est = Est.clonar();
                 double ganancia = next_Est.getganancia();
                 double aux = 0;
                 for (int j = i*interval; j < interval*(i+1) && j < n_furgo; ++j) {
