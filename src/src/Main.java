@@ -3,7 +3,7 @@
 // (powered by Fernflower decompiler)
 //
 
-import Estado.Estado;
+import Estado.Estado_g;
 import Check.isGoal;
 import Heurisitc_Function_1.Heuristic_Function;
 import IA.Bicing.Estaciones;
@@ -30,12 +30,16 @@ public class Main {
     public Main() {
     }
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
+
+    }
+
+    public static void pruebasG () throws IOException {
         File file = new File("Sedds.txt");
         BufferedReader br = new BufferedReader(new FileReader(file));
         for (int i = 0; i < 100; ++i) {
             int s = Integer.parseInt(br.readLine());
-            Estado Bicing = new Estado(30, 1500, 15, 0, s);
+            Estado_g Bicing = new Estado_g(30, 1500, 15, 0, s);
             BicingHillClimbingSearch(Bicing);
         }
         /*StartTime = System.nanoTime();
@@ -44,7 +48,7 @@ public class Main {
         System.out.println("Execution in Miliseconds " + (EndTime-StartTime)/1000000);*/
     }
 
-    private static void BicingHillClimbingSearch(Estado TSPB) {
+    private static void BicingHillClimbingSearch(Estado_g TSPB) {
 
 
         try {
@@ -52,7 +56,7 @@ public class Main {
             Problem problem = new Problem(TSPB, new sucesores(), new isGoal(), new Heuristic_Function());
             Search search = new HillClimbingSearch();
             SearchAgent agent = new SearchAgent(problem, search);
-            Estado E = (Estado) search.getGoalState();
+            Estado_g E = (Estado_g) search.getGoalState();
             long EndTime = System.nanoTime();
             long time = ((EndTime-StartTime)/1000000);
             Writer output;
@@ -78,14 +82,14 @@ public class Main {
 
     }
 
-    private static void BicingsimulatedAnnealingSearch(Estado Bicing) {
+    private static void BicingsimulatedAnnealingSearch(Estado_g Bicing) {
         System.out.println("\nTSP Simulated Annealing  -->");
 
         try {
             Problem problem = new Problem(Bicing, new sucesoresA(), new isGoal(), new Heuristic_Function());
             SimulatedAnnealingSearch search = new SimulatedAnnealingSearch(2000, 100, 10, 0.001D);
             SearchAgent agent = new SearchAgent(problem, search);
-            Estado E = (Estado) search.getGoalState();
+            Estado_g E = (Estado_g) search.getGoalState();
 
             for (int i = 0; i < E.getN_furgo(); ++i) {
                 System.out.println("Recorrido por furgoneta " + i + "  " + E.getIFurgo(i).getLong_t());
@@ -121,7 +125,7 @@ public class Main {
     }
 
 
-    public static  void printEstado (Estado E) {
+    public static  void printEstado (Estado_g E) {
         System.out.println("----INFO GENERAL----");
         int numStay ;
         int numCurr ;
