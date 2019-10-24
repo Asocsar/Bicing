@@ -1,4 +1,4 @@
-/*
+
 package Heuristic_Function_2;
 
 
@@ -8,7 +8,6 @@ import Van.Van;
 import aima.search.framework.HeuristicFunction;
 import aima.util.Pair;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.List;
@@ -77,9 +76,9 @@ public class Heuristic_Function implements HeuristicFunction {
         for (int j = 0; j < F.length; ++j) {
             //double heuristicValue = 0.0;
             Van furgoneta = E.getIFurgo(F[j]);
-            /*if (furgoneta.carga() > 0) {
+            if (furgoneta.carga() > 0) {
                 //Buscaremos cada estacion solo {e1, e2, ..., eN)
-                for (int k = 0; k < E.getNum_est(); ++k) {
+                /*for (int k = 0; k < E.getNum_est(); ++k) {
                     Estacion estacion = E.getEstacion(k);
                     double distancia = ((Math.abs(furgoneta.getCordX() - estacion.getCoordX()) + Math.abs(furgoneta.getCordY() - estacion.getCoordY())) / 1000.0);
                     //double coste = Math.floorDiv(E.getIFurgo(F[j]).carga()+9, 10)*distancia;
@@ -88,31 +87,30 @@ public class Heuristic_Function implements HeuristicFunction {
                         ingresoDejar = 0;
                     }
                     heuristicValue += heuristicValue - ingresoDejar * 0.6 + distancia * 0.4;
-                }
+                }*/
 
-             */
+
                 //Buscaremos solo los conjuntos {(e1, e2), (e1, e3), (e2, e3), ... }
-/*                List<int[]> conjuntos = generate(E.getNum_est(), 2);
+                List<int[]> conjuntos = generate(E.getNum_est(), 2);
                 for (int l = 0; l < conjuntos.size(); ++l) {
-
                     Estacion estacion1 = E.getEstacion(conjuntos.get(l)[0]);
                     Estacion estacion2 = E.getEstacion(conjuntos.get(l)[1]);
                     double distancia = ((Math.abs(furgoneta.getCordX() - estacion1.getCoordX()) + Math.abs(furgoneta.getCordY() - estacion1.getCoordY())) / 1000.0)
                             + (Math.abs(estacion1.getCoordX() - estacion2.getCoordX()) + Math.abs(estacion1.getCoordY() - estacion2.getCoordY()) / 1000.0);
                     double ingresoDejar = Math.min(E.getIFurgo(F[j]).carga(), E.getEstacion(conjuntos.get(l)[0]).getDemanda()-E.getEstacion(conjuntos.get(l)[0]).getNumBicicletasNext())
                             + Math.min(E.getIFurgo(F[j]).carga(), E.getEstacion(conjuntos.get(l)[1]).getDemanda()-E.getEstacion(conjuntos.get(l)[1]).getNumBicicletasNext());
-                    //heuristicValue_opt += heuristicValue_opt - ingresoDejar * 0.6 + distancia * 0.4;
+                    heuristicValue += heuristicValue - ingresoDejar * 0.6 + distancia * 0.4;
                 }
                 //double heuristicValue_min += heuristicValue_opt;
             }
             //Las furgonetas vacías irán a las estaciones con
             // más bicicletas no usadas para cogerlas y ser listo para dejar más bicicletas la hora que viene
-            //else {
+            else {
                 for (int m = 0; m < E.getNum_est(); ++m) {
                     heuristicValue += E.getEstacion(m).getNumBicicletasNoUsadas(); }
-            //}
-       // }
-        //return heuristicValue - E.getganancia();
-        //}
-//}
+            }
+        }
+        return heuristicValue - E.getganancia();
+    }
+}
 // La función heurística ahora (más o menos): min(carga, demanda)/distancia + bicicletasRecogidas/10 + ganancia*/
