@@ -20,12 +20,14 @@ public class Estado {
     private static int n_furgo;
     private boolean [] visited;
     private Van [] Furgonetas;
+    private int caso;
 
     public Estado () {
 
     }
 
     public Estado (int num_est, int nbicis, int nfurgo, int demanda, int seed, int cas) {
+        this.caso = cas;
         if (cas == 0) generate_o(num_est, nbicis, nfurgo, demanda, seed);
         else if (cas == 1) generate_g(num_est,nbicis,nfurgo,demanda,seed);
         else if (cas == 2) generate_r(num_est,nbicis,nfurgo,demanda,seed);
@@ -261,24 +263,28 @@ public class Estado {
     public Estaciones getEstaciones () {return this.Est;}
 
     public Estado clonar ()  {
-        Estado E = new Estado();
-        E.setNum_est(num_ests, this.visited);
-        E.setNbiciss(nbiciss);
-        E.setN_furgo(n_furgo);
-        E.setDemandas(demandas);
-        E.setSeeds(seeds);
-        E.setganancia(this.cdesp);
-        Estaciones aux = new Estaciones(num_ests,nbiciss,demandas,seeds);
-        for (int i = 0; i < n_furgo || i < num_ests; ++i) {
-            if (i < n_furgo)
-                E.setFurgo((Van) this.Furgonetas[i].clone(), i);
-            else if (i < num_ests){
-                aux.get(i).setNumBicicletasNoUsadas(Est.get(i).getNumBicicletasNoUsadas());
-                aux.get(i).setNumBicicletasNext(Est.get(i).getNumBicicletasNext());
-                aux.get(i).setDemanda(Est.get(i).getDemanda());
+        Estado E = null;
+        if (this.caso == 2) E = new Estado(num_ests,nbiciss,n_furgo,demandas,seeds,this.caso);
+        else {
+            E = new Estado();
+            E.setNum_est(num_ests, this.visited);
+            E.setNbiciss(nbiciss);
+            E.setN_furgo(n_furgo);
+            E.setDemandas(demandas);
+            E.setSeeds(seeds);
+            E.setganancia(this.cdesp);
+            Estaciones aux = new Estaciones(num_ests, nbiciss, demandas, seeds);
+            for (int i = 0; i < n_furgo || i < num_ests; ++i) {
+                if (i < n_furgo)
+                    E.setFurgo((Van) this.Furgonetas[i].clone(), i);
+                else if (i < num_ests) {
+                    aux.get(i).setNumBicicletasNoUsadas(Est.get(i).getNumBicicletasNoUsadas());
+                    aux.get(i).setNumBicicletasNext(Est.get(i).getNumBicicletasNext());
+                    aux.get(i).setDemanda(Est.get(i).getDemanda());
+                }
             }
+            E.setEstaciones(aux);
         }
-        E.setEstaciones(aux);
         return E;
     }
 

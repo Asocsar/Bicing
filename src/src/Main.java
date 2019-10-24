@@ -70,8 +70,8 @@ public class Main {
         BufferedReader br = new BufferedReader(new FileReader(file));
         for (int i = 0; i < 100; ++i) {
             int s = Integer.parseInt(br.readLine());
-            Estado Bicing = new Estado(30, 1500, 15, 1, s, 2);
-            BicingHillClimbingSearch(Bicing, 10);
+            Estado Bicing = new Estado(30, 1500, 15, 0, s, 2);
+            BicingHillClimbingSearch(Bicing, 20);
         }
         /*
         System.out.println("Execution in Miliseconds " + (EndTime-StartTime)/1000000);
@@ -107,7 +107,7 @@ public class Main {
             MedN /= 10;
             MedT /= 10;
             Writer output;
-            output = new BufferedWriter(new FileWriter("Estadisticas_Rnd_D1_H1.txt", true));
+            output = new BufferedWriter(new FileWriter("Estadisticas_Rnd_D0_H1.txt", true));
             String sep = ",";
             String S = MedB + sep + MedT + sep + MedN;
             S = S + '\n';
