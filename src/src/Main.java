@@ -28,11 +28,11 @@ public class Main {
     }
 
     public static void main(String[] args) throws IOException {
-
+        pruebaR();
     }
 
     public static void pruebaO () throws IOException {
-        File file = new File("Seeds.txt");
+        File file = new File("Sedds.txt");
         BufferedReader br = new BufferedReader(new FileReader(file));
         for (int i = 0; i < 100; ++i) {
             System.out.println(i);
@@ -49,7 +49,7 @@ public class Main {
     }
 
     public static void pruebaG () throws IOException {
-        File file = new File("Seeds.txt");
+        File file = new File("Sedds.txt");
         BufferedReader br = new BufferedReader(new FileReader(file));
         for (int i = 0; i < 100; ++i) {
             System.out.println(i);
@@ -66,11 +66,11 @@ public class Main {
     }
 
     public static void pruebaR () throws IOException {
-        File file = new File("Seeds.txt");
+        File file = new File("Sedds.txt");
         BufferedReader br = new BufferedReader(new FileReader(file));
         for (int i = 0; i < 100; ++i) {
             int s = Integer.parseInt(br.readLine());
-            Estado Bicing = new Estado(30, 1500, 15, 0, s, 2);
+            Estado Bicing = new Estado(30, 1500, 15, 1, s, 2);
             BicingHillClimbingSearch(Bicing, 10);
         }
         /*
@@ -107,7 +107,7 @@ public class Main {
             MedN /= 10;
             MedT /= 10;
             Writer output;
-            output = new BufferedWriter(new FileWriter("Estadisticas_Rnd_D0_H1.txt", true));
+            output = new BufferedWriter(new FileWriter("Estadisticas_Rnd_D1_H1.txt", true));
             String sep = ",";
             String S = MedB + sep + MedT + sep + MedN;
             S = S + '\n';
