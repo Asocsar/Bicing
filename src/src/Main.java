@@ -1,8 +1,3 @@
-//
-// Source code recreated from a .class file by IntelliJ IDEA
-// (powered by Fernflower decompiler)
-//
-
 import Estado.Estado_g;
 import Check.isGoal;
 import Heurisitc_Function_1.Heuristic_Function;
@@ -24,15 +19,12 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
 
-
-import java.util.Random;
-
 public class Main {
     public Main() {
     }
 
     public static void main(String[] args) throws IOException {
-
+        pruebasG();
     }
 
     public static void pruebasG () throws IOException {
