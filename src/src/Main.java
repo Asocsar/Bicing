@@ -38,7 +38,7 @@ public class Main {
             System.out.println(i);
             int s = Integer.parseInt(br.readLine());
             Estado Bicing = new Estado(30,1500,15,0,s,0);
-            BicingHillClimbingSearch(Bicing);
+            BicingHillClimbingSearch(Bicing, 1);
         }
 
         //Estado Bicing = new Estado(25,1250,5,0,1234);
@@ -55,7 +55,7 @@ public class Main {
             System.out.println(i);
             int s = Integer.parseInt(br.readLine());
             Estado Bicing = new Estado(30,1500,15,1,s,1);
-            BicingHillClimbingSearch(Bicing);
+            BicingHillClimbingSearch(Bicing, 1);
         }
 
         //Estado Bicing = new Estado(25,1250,5,0,1234);
@@ -71,7 +71,7 @@ public class Main {
         for (int i = 0; i < 100; ++i) {
             int s = Integer.parseInt(br.readLine());
             Estado Bicing = new Estado(30, 1500, 15, 0, s, 2);
-            BicingHillClimbingSearch(Bicing);
+            BicingHillClimbingSearch(Bicing, 10);
         }
         /*
         System.out.println("Execution in Miliseconds " + (EndTime-StartTime)/1000000);
@@ -81,26 +81,39 @@ public class Main {
         System.out.println("Execution in Miliseconds " + (EndTime-StartTime)/1000000);*/
     }
 
-    private static void BicingHillClimbingSearch(Estado TSPB) {
+    private static void BicingHillClimbingSearch(Estado Bicing, int num) {
         //System.out.println("\nTSP HillClimbing  -->");
 
+
         try {
-            long StartTime = System.nanoTime();
-            Problem problem = new Problem(TSPB, new sucesores(), new isGoal(), new Heuristic_Function());
-            Search search = new HillClimbingSearch();
-            SearchAgent agent = new SearchAgent(problem, search);
-            System.out.println();
-            long EndTime = System.nanoTime();
-            long time = ((EndTime-StartTime)/1000000);
-            Estado E = (Estado) search.getGoalState();
+            double MedT = 0;
+            double MedN = 0;
+            double MedB = 0;
+            for (int i = 0; i < num; ++i) {
+                Estado TSPB = Bicing.clonar();
+                long StartTime = System.nanoTime();
+                Problem problem = new Problem(TSPB, new sucesores(), new isGoal(), new Heuristic_Function());
+                Search search = new HillClimbingSearch();
+                SearchAgent agent = new SearchAgent(problem, search);
+                Properties properties = agent.getInstrumentation();
+                long EndTime = System.nanoTime();
+                Estado E = (Estado) search.getGoalState();
+                long time = ((EndTime - StartTime) / 1000000);
+                MedT += time;
+                MedB += E.getganancia();
+                MedN += Integer.parseInt(properties.getProperty((String)properties.keySet().iterator().next()));
+            }
+            MedB /= 10;
+            MedN /= 10;
+            MedT /= 10;
             Writer output;
-            output = new BufferedWriter(new FileWriter("Estadisticas_G_D1_H1.txt", true));
-            Properties properties = agent.getInstrumentation();
+            output = new BufferedWriter(new FileWriter("Estadisticas_Rnd_D0_H1.txt", true));
             String sep = ",";
-            String S = E.getganancia() + sep + time + sep + properties.getProperty((String)properties.keySet().iterator().next());
+            String S = MedB + sep + MedT + sep + MedN;
             S = S + '\n';
             output.append(S);
             output.close();
+
             /*
             for (int i = 0; i < E.getN_furgo(); ++i) {
                 System.out.println("Recorrido por furgoneta " + i + "  " + E.getIFurgo(i).getLong_t());
