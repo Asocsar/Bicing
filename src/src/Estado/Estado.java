@@ -7,6 +7,7 @@ import aima.util.Pair;
 
 
 import java.util.Arrays;
+import java.util.Random;
 
 public class Estado {
 
@@ -27,6 +28,35 @@ public class Estado {
     public Estado (int num_est, int nbicis, int nfurgo, int demanda, int seed, int cas) {
         if (cas == 0) generate_o(num_est, nbicis, nfurgo, demanda, seed);
         else if (cas == 1) generate_g(num_est,nbicis,nfurgo,demanda,seed);
+        else if (cas == 2) generate_r(num_est,nbicis,nfurgo,demanda,seed);
+    }
+
+    private void generate_r (int num_est, int nbicis, int nfurgo, int demanda, int seed) {
+        this.Est = new Estaciones(num_est, nbicis, demanda, seed);
+        this.cdesp = 0;
+        this.visited = new boolean[num_est];
+        Arrays.fill(this.visited, false);
+        num_ests = num_est;
+        n_furgo = nfurgo;
+        nbiciss = nbicis;
+        demandas = demanda;
+        seeds = seed;
+        this.Furgonetas = new Van [n_furgo];
+        int j_fur = 0;
+        Random R = new Random();
+        int parte = 1;
+        while (j_fur < n_furgo) {
+            int i_est = R.nextInt(num_est);
+            Estacion E = this.Est.get(i_est);
+            int x = E.getCoordX();
+            int y = E.getCoordY();
+            this.Furgonetas[j_fur] = new Van(x,y);
+            int needed =  E.getNumBicicletasNext() - E.getDemanda();
+            needed = Math.min(needed, E.getNumBicicletasNoUsadas()/parte);
+            needed = Math.min(needed, (this.Furgonetas[j_fur].carga_max() - this.Furgonetas[j_fur].carga()));
+            if (needed > 0 ) this.Furgonetas[j_fur].pickUp(needed,this.Est, i_est);
+            ++j_fur;
+        }
     }
 
     private void generate_g (int num_est, int nbicis, int nfurgo, int demanda, int seed) {

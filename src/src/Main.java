@@ -65,6 +65,10 @@ public class Main {
         System.out.println("Execution in Miliseconds " + (EndTime-StartTime)/1000000);*/
     }
 
+    public static void pruebaR () {
+
+    }
+
     private static void BicingHillClimbingSearch(Estado TSPB) {
         //System.out.println("\nTSP HillClimbing  -->");
 
