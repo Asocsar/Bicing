@@ -8,7 +8,7 @@ import aima.util.Pair;
 
 import java.util.Arrays;
 
-public class Estado_g {
+public class Estado {
 
     private Estaciones Est;
     private static int num_ests;
@@ -20,9 +20,16 @@ public class Estado_g {
     private boolean [] visited;
     private Van [] Furgonetas;
 
-    public Estado_g () {}
+    public Estado () {
 
-    public Estado_g (int num_est, int nbicis, int nfurgo, int demanda, int seed) {
+    }
+
+    public Estado (int num_est, int nbicis, int nfurgo, int demanda, int seed, int cas) {
+        if (cas == 0) generate_o(num_est, nbicis, nfurgo, demanda, seed);
+        else if (cas == 1) generate_g(num_est,nbicis,nfurgo,demanda,seed);
+    }
+
+    private void generate_g (int num_est, int nbicis, int nfurgo, int demanda, int seed) {
         this.Est = new Estaciones(num_est, nbicis, demanda, seed);
         this.cdesp = 0;
         this.visited = new boolean[num_est];
@@ -35,7 +42,7 @@ public class Estado_g {
         this.Furgonetas = new Van [n_furgo];
         int parte = 1;
         int max = 0;
-        Pair [] X = new Pair [num_est];
+        Pair[] X = new Pair [num_est];
         Pair [] F = new Pair [num_est];
 
         for (int i = 0; i < num_est; ++i) {
@@ -94,6 +101,48 @@ public class Estado_g {
                 ++j_fur;
             }
             --i_sig;
+        }
+    }
+
+    private void generate_o (int num_est, int nbicis, int nfurgo, int demanda, int seed) {
+        this.Est = new Estaciones(num_est, nbicis, demanda, seed);
+        this.cdesp = 0;
+        this.visited = new boolean[num_est];
+        Arrays.fill(this.visited, false);
+        num_ests = num_est;
+        n_furgo = nfurgo;
+        nbiciss = nbicis;
+        demandas = demanda;
+        seeds = seed;
+        this.Furgonetas = new Van [n_furgo];
+        int j_fur = 0;
+        int i_est = 0;
+        int parte = 1;
+        while (j_fur < n_furgo && i_est < num_ests) {
+            Estacion E = this.Est.get(i_est);
+            int x = E.getCoordX();
+            int y = E.getCoordY();
+            this.Furgonetas[j_fur] = new Van(x,y);
+            int needed =  E.getNumBicicletasNext() - E.getDemanda();
+            needed = Math.min(needed, E.getNumBicicletasNoUsadas()/parte);
+            needed = Math.min(needed, (this.Furgonetas[j_fur].carga_max() - this.Furgonetas[j_fur].carga()));
+            if (needed > 0 ) this.Furgonetas[j_fur].pickUp(needed,this.Est, i_est);
+            ++i_est;
+            ++j_fur;
+        }
+
+        while (j_fur < n_furgo) {
+            i_est = i_est % num_est;
+            Estacion E = this.Est.get(i_est);
+            int x = E.getCoordX();
+            int y = E.getCoordY();
+            this.Furgonetas[j_fur] = new Van(x,y);
+            int needed =  E.getNumBicicletasNext() - E.getDemanda();
+            needed = Math.min(needed, E.getNumBicicletasNoUsadas()/parte);
+            needed = Math.min(needed, (this.Furgonetas[j_fur].carga_max() - this.Furgonetas[j_fur].carga()));
+            if (needed > 0) this.Furgonetas[j_fur].pickUp(needed,this.Est, i_est);
+            ++i_est;
+            ++j_fur;
         }
     }
 
@@ -162,7 +211,11 @@ public class Estado_g {
 
     public void setEstaciones (Estaciones E) { this.Est = E;}
 
+    private Estaciones getEst () {return this.Est;}
+
     public Estacion getEstacion (int i) { return this.Est.get(i); }
+
+    private Van [] getFurgonetas () {return this.Furgonetas;}
 
     private void setNbiciss(int n) {nbiciss = n;}
 
@@ -177,29 +230,24 @@ public class Estado_g {
 
     public Estaciones getEstaciones () {return this.Est;}
 
-    public Estado_g clonar () {
-        Estado_g E = new Estado_g();
+    public Estado clonar ()  {
+        Estado E = new Estado();
         E.setNum_est(num_ests, this.visited);
         E.setNbiciss(nbiciss);
         E.setN_furgo(n_furgo);
         E.setDemandas(demandas);
         E.setSeeds(seeds);
         E.setganancia(this.cdesp);
-        for (int i = 0; i < n_furgo; ++i) {
-            Van V = new Van(getIFurgo(i).getCordX(), getIFurgo(i).getCordY());
-            V.setCharge(getIFurgo(i).carga());
-            V.setLong_t(getIFurgo(i).getLong_t());
-            E.setFurgo(V, i);
+        Estaciones aux = new Estaciones(num_ests,nbiciss,demandas,seeds);
+        for (int i = 0; i < n_furgo || i < num_ests; ++i) {
+            if (i < n_furgo)
+                E.setFurgo((Van) this.Furgonetas[i].clone(), i);
+            else if (i < num_ests){
+                aux.get(i).setNumBicicletasNoUsadas(Est.get(i).getNumBicicletasNoUsadas());
+                aux.get(i).setNumBicicletasNext(Est.get(i).getNumBicicletasNext());
+                aux.get(i).setDemanda(Est.get(i).getDemanda());
+            }
         }
-
-
-        Estaciones aux = new Estaciones (num_ests, nbiciss, demandas, seeds);
-        for (int i = 0; i < num_ests; ++i) {
-            aux.get(i).setNumBicicletasNoUsadas(Est.get(i).getNumBicicletasNoUsadas());
-            aux.get(i).setNumBicicletasNext(Est.get(i).getNumBicicletasNext());
-            aux.get(i).setDemanda(Est.get(i).getDemanda());
-        }
-
         E.setEstaciones(aux);
         return E;
     }

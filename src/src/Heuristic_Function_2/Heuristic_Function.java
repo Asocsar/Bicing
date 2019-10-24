@@ -1,6 +1,6 @@
 package Heuristic_Function_2;
 
-import Estado.Estado_g;
+import Estado.Estado;
 import IA.Bicing.Estacion;
 import Van.Van;
 import aima.search.framework.HeuristicFunction;
@@ -17,7 +17,7 @@ public class Heuristic_Function implements HeuristicFunction{
     }
 
     public double getHeuristicValue(Object state) {
-        Estado_g E = (Estado_g) state;
+        Estado E = (Estado) state;
         int earnings = 0;
         Van[] listFurgonetas = new Van[E.getN_furgo()];
         for (int i = 0; i < E.getN_furgo(); ++i) {
