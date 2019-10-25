@@ -53,37 +53,37 @@ NO2_D1 <- O2_D1$NODE
 NR2_D1 <- R2_D1$NODE
 
 boxplot(BG1_D0,BO1_D0,BR1_D0,
-        main = "Comparacion de Beneficios Demanda 0 Heuristic 0",
+        main = "Comparacion de Beneficios Demanda 0 Heuristic 1",
         at = c(1,2,3),
         names = c("Greedy", "Ordenat", "Random")
 )
 
 boxplot(TG1_D0,TO1_D0,TR1_D0,
-        main = "Comparacion de Tiempos Demanda 0 Heuristic 0",
+        main = "Comparacion de Tiempos Demanda 0 Heuristic 1",
         at = c(1,2,3),
         names = c("Greedy", "Ordenat", "Random")
 )
 
 boxplot(NG1_D0,NO1_D0,NR1_D0,
-        main = "Comparacion de Nodos abiertos Demanda 0 Heuristic 0",
+        main = "Comparacion de Nodos abiertos Demanda 0 Heuristic 1",
         at = c(1,2,3),
         names = c("Greedy", "Ordenat", "Random")
 )
 
 boxplot(BG1_D1,BO1_D1,BR1_D1,
-main = "Comparacion de Beneficios Demanda 1 Heuristic 0",
+main = "Comparacion de Beneficios Demanda 1 Heuristic 1",
 at = c(1,2,3),
 names = c("Greedy", "Ordenat", "Random")
 )
 
 boxplot(TG1_D1,TO1_D1,TR1_D1,
-main = "Comparacion de Tiempos Demanda 1 Heuristic 0",
+main = "Comparacion de Tiempos Demanda 1 Heuristic 1",
 at = c(1,2,3),
 names = c("Greedy", "Ordenat", "Random")
 )
 
 boxplot(NG1_D1,NO1_D1,NR1_D1,
-main = "Comparacion de Nodos abiertos Demanda 1 Heuristic 0",
+main = "Comparacion de Nodos abiertos Demanda 1 Heuristic 1",
 at = c(1,2,3),
 names = c("Greedy", "Ordenat", "Random")
 )
