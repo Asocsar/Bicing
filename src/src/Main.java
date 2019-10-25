@@ -5,8 +5,8 @@
 
 import Estado.Estado;
 import Check.isGoal;
-//import Heurisitc_Function_1.Heuristic_Function;
-import Heuristic_Function_2.Heuristic_Function;
+import Heurisitc_Function_1.Heuristic_Function;
+//import Heuristic_Function_2.Heuristic_Function;
 import IA.Bicing.Estaciones;
 import IA.Bicing.Estacion;
 import Sucesores.sucesores;
@@ -29,7 +29,7 @@ public class Main {
     }
 
     public static void main(String[] args) throws IOException {
-        pruebaR();
+        pruebaG();
     }
 
     public static void pruebaO () throws IOException {
@@ -55,7 +55,7 @@ public class Main {
         for (int i = 0; i < 100; ++i) {
             System.out.println(i);
             int s = Integer.parseInt(br.readLine());
-            Estado Bicing = new Estado(25,1250,5,1,s,1);
+            Estado Bicing = new Estado(25,1250,5,0,s,1);
             BicingHillClimbingSearch(Bicing, 1);
         }
 
@@ -108,7 +108,7 @@ public class Main {
             MedN /= num;
             MedT /= num;
             Writer output;
-            output = new BufferedWriter(new FileWriter("Estadisticas_Rnd_D1_H2.txt", true));
+            output = new BufferedWriter(new FileWriter("Estadisticas_G_D0_H1.txt", true));
             String sep = ",";
             String S = MedB + sep + MedT + sep + MedN;
             S = S + '\n';
