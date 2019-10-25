@@ -28,7 +28,7 @@ public class Main {
     }
 
     public static void main(String[] args) throws IOException {
-        pruebaR();
+        pruebaG();
     }
 
     public static void pruebaO () throws IOException {
@@ -37,7 +37,7 @@ public class Main {
         for (int i = 0; i < 100; ++i) {
             System.out.println(i);
             int s = Integer.parseInt(br.readLine());
-            Estado Bicing = new Estado(30,1500,15,0,s,0);
+            Estado Bicing = new Estado(25,1250,5,1,s,0);
             BicingHillClimbingSearch(Bicing, 1);
         }
 
@@ -54,7 +54,7 @@ public class Main {
         for (int i = 0; i < 100; ++i) {
             System.out.println(i);
             int s = Integer.parseInt(br.readLine());
-            Estado Bicing = new Estado(30,1500,15,1,s,1);
+            Estado Bicing = new Estado(25,1250,5,1,s,1);
             BicingHillClimbingSearch(Bicing, 1);
         }
 
@@ -70,7 +70,7 @@ public class Main {
         BufferedReader br = new BufferedReader(new FileReader(file));
         for (int i = 0; i < 100; ++i) {
             int s = Integer.parseInt(br.readLine());
-            Estado Bicing = new Estado(30, 1500, 15, 0, s, 2);
+            Estado Bicing = new Estado(25, 1250, 5, 1, s, 2);
             BicingHillClimbingSearch(Bicing, 20);
         }
         /*
@@ -103,11 +103,11 @@ public class Main {
                 MedB += E.getganancia();
                 MedN += Integer.parseInt(properties.getProperty((String)properties.keySet().iterator().next()));
             }
-            MedB /= 10;
-            MedN /= 10;
-            MedT /= 10;
+            MedB /= num;
+            MedN /= num;
+            MedT /= num;
             Writer output;
-            output = new BufferedWriter(new FileWriter("Estadisticas_Rnd_D0_H1.txt", true));
+            output = new BufferedWriter(new FileWriter("Estadisticas_G_D1_H1.txt", true));
             String sep = ",";
             String S = MedB + sep + MedT + sep + MedN;
             S = S + '\n';

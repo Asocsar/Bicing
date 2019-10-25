@@ -15,7 +15,7 @@ public class sucesores implements SuccessorFunction {
         ArrayList retVal = new ArrayList();
         int n_furgo = Est.getN_furgo();
         int n_est = Est.getNum_est();
-        int n_int = 2;
+        int n_int = 3;
         int n_acc = 3;
         int interval = n_int;
         int veces = n_furgo/interval;
