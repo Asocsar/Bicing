@@ -16,7 +16,7 @@ public class sucesores implements SuccessorFunction {
         int n_furgo = Est.getN_furgo();
         int n_est = Est.getNum_est();
         int n_int = 3;
-        int n_acc = 3;
+        int n_acc = 2;
         int interval = n_int;
         int veces = n_furgo/interval;
         if (n_furgo%interval != 0) ++veces;
@@ -30,14 +30,14 @@ public class sucesores implements SuccessorFunction {
                 double ganancia = next_Est.getganancia();
                 double aux = 0;
                 for (int j = i*interval; j < interval*(i+1) && j < n_furgo; ++j) {
-                    if (accion[j%n_int] == 0 ) {
+                    /*if (accion[j%n_int] == 0 ) {
                         aux -= next_Est.Coger(j);
 
-                    }
-                    else if (accion[j%n_int] == 1 ) {
+                    }*/
+                    /*else */if (accion[j%n_int] == 0 ) {
                         aux += next_Est.Dejar(j);
                     }
-                    else if (accion[j%n_int] == 2 ) {
+                    else if (accion[j%n_int] == 1 ) {
                         aux += next_Est.Dejar(j);
                         aux += next_Est.Dejar(j);
                     }

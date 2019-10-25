@@ -18,13 +18,13 @@ public class Heuristic_Function implements HeuristicFunction {
         Estado E = (Estado) state;
         for (int i = 0; i < E.getNum_est(); ++i) {
             int n = E.getEstacion(i).getNumBicicletasNext() - E.getEstacion(i).getDemanda();
-            int ncog = E.getEstacion(i).getNumBicicletasNoUsadas();
+            //int ncog = E.getEstacion(i).getNumBicicletasNoUsadas();
             if (n < 0)
                 coste -= n*0.3;
 
-            coste += ncog*0.2;
+            //coste += ncog*0.2;
         }
-        if (E.getganancia() != 0) coste -=  E.getganancia()*2;
+        if (E.getganancia() != 0) coste -=  E.getganancia();
 
         return (coste);
     }

@@ -20,12 +20,12 @@ public class sucesoresA implements SuccessorFunction {
         double gan = Est.getganancia();
         double ingres = 0;
         for (int i = 0; i < n_furgo; ++i) {
-            int decision = myRandom.nextInt(4);
-            if (decision == 0 ) {
+            int decision = myRandom.nextInt(3);
+            /*if (decision == 0 ) {
                 ingres -= next_Est.Coger(i);
-            } else if (decision == 1 ) {
+            } else */if (decision == 0 ) {
                 ingres += next_Est.Dejar(i);
-            } else if (decision == 2 ) {
+            } else if (decision == 1 ) {
                 ingres += next_Est.Dejar(i);
                 ingres += next_Est.Dejar(i);
             }

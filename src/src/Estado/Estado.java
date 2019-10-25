@@ -178,7 +178,7 @@ public class Estado {
         }
     }
 
-    public double Coger (int i_furgo) {
+    /*public double Coger (int i_furgo) {
         double cost = 20000;
         int x_van = Furgonetas[i_furgo].getCordX();
         int y_van = Furgonetas[i_furgo].getCordY();
@@ -195,7 +195,7 @@ public class Estado {
         Furgonetas[i_furgo].pickUp(max_get, Est, i_est);
         this.visited[i_est] = true;
         return coste_mov;
-    }
+    }*/
 
 
     public int Dejar (int i_furgo) {

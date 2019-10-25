@@ -29,7 +29,7 @@ public class Main {
     }
 
     public static void main(String[] args) throws IOException {
-        pruebaR();
+        pruebaG();
     }
 
     public static void pruebaO () throws IOException {
