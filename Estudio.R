@@ -18,13 +18,13 @@ boxplot(BG,BO,BR,
 )
 
 boxplot(TG,TO,TR,
-        main = "Comparacion de Beneficios",
+        main = "Comparacion de Tiempos",
         at = c(1,2,3),
         names = c("Greedy", "Ordenat", "Random")
 )
 
 boxplot(NG,NO,NR,
-        main = "Comparacion de Beneficios",
+        main = "Comparacion de Nodos abiertos",
         at = c(1,2,3),
         names = c("Greedy", "Ordenat", "Random")
 )
