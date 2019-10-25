@@ -7,12 +7,14 @@ public class Van  {
     private int CordY;
     private double long_t;
     private int charge;
+    private int last_cost;
 
     public Van (int x, int y) {
         this.CordX = x;
         this.CordY = y;
         this.charge = 0;
         this.long_t = 0;
+        this.last_cost = 0;
 
     }
 
@@ -21,7 +23,8 @@ public class Van  {
         this.long_t += cost;
         this.CordX = x;
         this.CordY = y;
-        return (cost/1000)*((this.charge+9)/10);
+        this.last_cost = (cost/1000)*((this.charge+9)/10);
+        return last_cost;
     }
 
     public void pickUp(int number, Estaciones e, int i) {
@@ -49,6 +52,8 @@ public class Van  {
     public int getCordX () { return this.CordX; }
 
     public int getCordY () { return this.CordY; }
+
+    public int getLast_cost () {return this.last_cost;}
 
 
 
