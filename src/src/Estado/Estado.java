@@ -198,7 +198,7 @@ public class Estado {
     }*/
 
 
-    public int Dejar (int i_furgo) {
+    public double Dejar (int i_furgo) {
         int max_ben = 0;
         int i_est = 0;
         Van V = Furgonetas[i_furgo];
@@ -213,7 +213,7 @@ public class Estado {
             if (total > max_ben) {max_ben = total; i_est = i;}
         }
         max_ben = Math.min(max_ben, V.carga());
-        int cost = Furgonetas[i_furgo].move(Est.get(i_est).getCoordX(), Est.get(i_est).getCoordY());
+        double cost = Furgonetas[i_furgo].move(Est.get(i_est).getCoordX(), Est.get(i_est).getCoordY());
         Furgonetas[i_furgo].leave(max_ben, Est, i_est);
         return max_ben - cost;
     }

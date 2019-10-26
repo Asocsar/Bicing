@@ -7,7 +7,7 @@ public class Van  implements  Cloneable{
     private int CordY;
     private double long_t;
     private int charge;
-    private int last_cost;
+    private double last_cost;
 
     public Van (int x, int y) {
         this.CordX = x;
@@ -18,12 +18,12 @@ public class Van  implements  Cloneable{
 
     }
 
-    public int move (int x, int y) {
+    public double move (int x, int y) {
         int cost = Math.abs(this.CordX-x) + Math.abs(this.CordY-y);
         this.long_t += cost;
         this.CordX = x;
         this.CordY = y;
-        this.last_cost += (cost/1000)*((this.charge+9)/10);
+        this.last_cost += (cost/1000.0)*((this.charge+9)/10);
         return last_cost;
     }
 
@@ -53,7 +53,7 @@ public class Van  implements  Cloneable{
 
     public int getCordY () { return this.CordY; }
 
-    public int getLast_cost () {return this.last_cost;}
+    public double getLast_cost () {return this.last_cost;}
 
     public Object clone ()  {
         try {
