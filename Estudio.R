@@ -52,13 +52,15 @@ NG2_D1 <- G2_D1$NODE
 NO2_D1 <- O2_D1$NODE
 NR2_D1 <- R2_D1$NODE
 
+library(RColorBrewer)
+coul <- brewer.pal(5, "Set2")
 
 D <- BG1_D0 - BO1_D0
 D1 <- length(D[which(D >= 0)])
 D2 <- length(D[which(D < 0)])
 n <- c(D1,D2)
 
-barplot(n, col = c("blue","red"), ylim = c(0,100), legend = n, 
+barplot(n, col = coul, ylim = c(0,100), legend = n, 
         main = "Numero de veces donde el beneficio de \n Greedy mayor que Ordenado \n [Heuristic1-Demanda0]",
         names.arg = c("Superior", "Inferior"))
 
@@ -68,7 +70,7 @@ D1 <- length(D[which(D >= 0)])
 D2 <- length(D[which(D < 0)])
 n = c(D1,D2)
 
-barplot(n, col = c("blue","red"), ylim = c(0,100), legend = n, 
+barplot(n, col = coul, ylim = c(0,100), legend = n, 
         main = "Numero de veces donde el beneficio de \n Greedy mayor que Ordenado [Heuristic2-Demanda0]",
         names.arg = c("Superior", "Inferior"))
 
@@ -77,7 +79,7 @@ D1 <- length(D[which(D >= 0)])
 D2 <- length(D[which(D < 0)])
 n <- c(D1,D2)
 
-barplot(n, col = c("blue","red"), ylim = c(0,100), legend = n, 
+barplot(n, col = coul, ylim = c(0,100), legend = n, 
         main = "Numero de veces donde el beneficio de \n Greedy mayor que Ordenado \n [Heuristic1-Demanda1]",
         names.arg = c("Superior", "Inferior"))
 
@@ -87,7 +89,7 @@ D1 <- length(D[which(D >= 0)])
 D2 <- length(D[which(D < 0)])
 n = c(D1,D2)
 
-barplot(n, col = c("blue","red"), ylim = c(0,100), legend = n, 
+barplot(n, col = coul, ylim = c(0,100), legend = n, 
         main = "Numero de veces donde el beneficio de \n Greedy mayor que Ordenado [Heuristic2-Demanda1]",
         names.arg = c("Superior", "Inferior"))
 
@@ -96,7 +98,7 @@ D1 <- length(D[which(D >= 0)])
 D2 <- length(D[which(D < 0)])
 n <- c(D1,D2)
 
-barplot(n, col = c("blue","red"), ylim = c(0,100), legend = n, 
+barplot(n, col = coul, ylim = c(0,100), legend = n, 
         main = "Numero de veces donde el beneficio de \n Random mayor que Ordenado \n [Heuristic1-Demanda0]",
         names.arg = c("Superior", "Inferior"))
 
@@ -106,7 +108,7 @@ D1 <- length(D[which(D >= 0)])
 D2 <- length(D[which(D < 0)])
 n = c(D1,D2)
 
-barplot(n, col = c("blue","red"), ylim = c(0,100), legend = n, 
+barplot(n, col = coul, ylim = c(0,100), legend = n, 
         main = "Numero de veces donde el beneficio de \n Random mayor que Ordenado [Heuristic2-Demanda0]",
         names.arg = c("Superior", "Inferior"))
 
@@ -115,7 +117,7 @@ D1 <- length(D[which(D >= 0)])
 D2 <- length(D[which(D < 0)])
 n <- c(D1,D2)
 
-barplot(n, col = c("blue","red"), ylim = c(0,100), legend = n, 
+barplot(n, col = coul, ylim = c(0,100), legend = n, 
         main = "Numero de veces donde el beneficio de \n Random mayor que Ordenado \n [Heuristic1-Demanda1]",
         names.arg = c("Superior", "Inferior"))
 
@@ -125,7 +127,7 @@ D1 <- length(D[which(D >= 0)])
 D2 <- length(D[which(D < 0)])
 n = c(D1,D2)
 
-barplot(n, col = c("blue","red"), ylim = c(0,100), legend = n, 
+barplot(n, col = coul, ylim = c(0,100), legend = n, 
         main = "Numero de veces donde el beneficio de \n Random mayor que Ordenado [Heuristic2-Demanda1]",
         names.arg = c("Superior", "Inferior"))
 
@@ -134,7 +136,7 @@ D1 <- length(D[which(D >= 0)])
 D2 <- length(D[which(D < 0)])
 n <- c(D1,D2)
 
-barplot(n, col = c("blue","red"), ylim = c(0,100), legend = n, 
+barplot(n, col = coul, ylim = c(0,100), legend = n, 
         main = "Numero de veces donde el beneficio de \n Greedy mayor que Random \n [Heuristic1-Demanda0]",
         names.arg = c("Superior", "Inferior"))
 
@@ -144,7 +146,7 @@ D1 <- length(D[which(D >= 0)])
 D2 <- length(D[which(D < 0)])
 n = c(D1,D2)
 
-barplot(n, col = c("blue","red"), ylim = c(0,100), legend = n, 
+barplot(n, col = coul, ylim = c(0,100), legend = n, 
         main = "Numero de veces donde el beneficio de \n Greedy mayor que Random [Heuristic2-Demanda0]",
         names.arg = c("Superior", "Inferior"))
 
@@ -153,7 +155,7 @@ D1 <- length(D[which(D >= 0)])
 D2 <- length(D[which(D < 0)])
 n <- c(D1,D2)
 
-barplot(n, col = c("blue","red"), ylim = c(0,100), legend = n, 
+barplot(n, col = coul, ylim = c(0,100), legend = n, 
         main = "Numero de veces donde el beneficio de \n Greedy mayor que Random \n [Heuristic1-Demanda1]",
         names.arg = c("Superior", "Inferior"))
 
@@ -163,7 +165,7 @@ D1 <- length(D[which(D >= 0)])
 D2 <- length(D[which(D < 0)])
 n = c(D1,D2)
 
-barplot(n, col = c("blue","red"), ylim = c(0,100), legend = n, 
+barplot(n, col = coul, ylim = c(0,100), legend = n, 
         main = "Numero de veces donde el beneficio de \n Greedy mayor que Random [Heuristic2-Demanda1]",
         names.arg = c("Superior", "Inferior"))
 
