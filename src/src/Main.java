@@ -107,9 +107,7 @@ public class Main {
             MedB /= num;
             MedN /= num;
             MedT /= num;
-            MedB = Math.round(MedB);
-            MedN = Math.round(MedN);
-            MedT = Math.round(MedT);
+            MedB = (Math.round(MedB*100.0)/100.0);
             Writer output;
             output = new BufferedWriter(new FileWriter("Estadisticas_Rnd_D1_H2.txt", true));
             String sep = ",";
