@@ -264,19 +264,19 @@ names = c("Order_H1_D1", "Order_H2_D1", "Greedy_H1_D1", "Greedy_H2_D1", "Random_
 boxplot(BG1_D0, BG1_D0_A,
 main = "Comparacion de Beneficios por operadores Greedy",
 at = c(1,2),
-names = c("Dejar", "Dejar + Pasar")
+names = c("Dejar+Pasar", "Dejar")
 )
 
 boxplot(BO1_D0, BO1_D0_A,
 main = "Comparacion de Beneficios por operadores Ordered",
 at = c(1,2),
-names = c("Dejar", "Dejar + Pasar")
+names = c("Dejar+Pasar", "Dejar")
 )
 
 boxplot(BR1_D0, BR1_D0_A,
 main = "Comparacion de Beneficios por operadores Random",
 at = c(1,2),
-names = c("Dejar", "Dejar + Pasar")
+names = c("Dejar+Pasar", "Dejar")
 )
 
 
