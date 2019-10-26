@@ -14,10 +14,17 @@ G2_D1 = read.table("/home/asocar/Desktop/Universidad/Bicing/Estadisticas_G_D1_H2
 O2_D1 = read.table("/home/asocar/Desktop/Universidad/Bicing/Estadisticas_Ord_D1_H2.txt", header = TRUE, sep = ",", dec = ".")
 R2_D1 = read.table("/home/asocar/Desktop/Universidad/Bicing/Estadisticas_Rnd_D1_H2.txt", header = TRUE, sep = ",", dec = ".")
 
+G1_D0_1A = read.table("/home/asocar/Desktop/Universidad/Bicing/Estadisticas_G_D0_H1_1A.txt", header = TRUE, sep = ",", dec = ".")
+O1_D0_1A = read.table("/home/asocar/Desktop/Universidad/Bicing/Estadisticas_Ord_D0_H1_1A.txt", header = TRUE, sep = ",", dec = ".")
+R1_D0_1A = read.table("/home/asocar/Desktop/Universidad/Bicing/Estadisticas_Rnd_D0_H1_1A.txt", header = TRUE, sep = ",", dec = ".")
+
 
 BG1_D0 <- G1_D0$BEN
+BG1_D0_A <- G1_D0_1A$BEN
 BO1_D0 <- O1_D0$BEN
+BO1_D0_A <- O1_D0_1A$BEN
 BR1_D0 <- R1_D0$BEN
+BR1_D0_A <- R1_D0_1A$BEN
 BG2_D0 <- G2_D0$BEN
 BO2_D0 <- O2_D0$BEN
 BR2_D0 <- R2_D0$BEN
@@ -252,6 +259,24 @@ boxplot(BO1_D1, BO2_D1, BG1_D1, BG2_D1, BR1_D1, BR2_D1,
 main = "Comparacion de Beneficios entre Heuristic 1 y 2 Demand = 1",
 at = c(1,2,3,4,5,6),
 names = c("Order_H1_D1", "Order_H2_D1", "Greedy_H1_D1", "Greedy_H2_D1", "Random_H1_D1", "Random_H2_D1")
+)
+
+boxplot(BG1_D0, BG1_D0_A,
+main = "Comparacion de Beneficios por operadores Greedy",
+at = c(1,2),
+names = c("Dejar", "Dejar + Pasar")
+)
+
+boxplot(BO1_D0, BO1_D0_A,
+main = "Comparacion de Beneficios por operadores Ordered",
+at = c(1,2),
+names = c("Dejar", "Dejar + Pasar")
+)
+
+boxplot(BR1_D0, BR1_D0_A,
+main = "Comparacion de Beneficios por operadores Random",
+at = c(1,2),
+names = c("Dejar", "Dejar + Pasar")
 )
 
 

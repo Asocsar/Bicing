@@ -278,9 +278,9 @@ public class Estado {
                 if (i < n_furgo)
                     E.setFurgo((Van) this.Furgonetas[i].clone(), i);
                 else if (i < num_ests) {
-                    aux.get(i).setNumBicicletasNoUsadas(Est.get(i).getNumBicicletasNoUsadas());
-                    aux.get(i).setNumBicicletasNext(Est.get(i).getNumBicicletasNext());
-                    aux.get(i).setDemanda(Est.get(i).getDemanda());
+                    aux.get(i).setNumBicicletasNoUsadas(this.Est.get(i).getNumBicicletasNoUsadas());
+                    aux.get(i).setNumBicicletasNext(this.Est.get(i).getNumBicicletasNext());
+                    aux.get(i).setDemanda(this.Est.get(i).getDemanda());
                 }
             }
             E.setEstaciones(aux);
