@@ -254,3 +254,12 @@ at = c(1,2,3,4,5,6),
 names = c("Order_H1_D1", "Order_H2_D1", "Greedy_H1_D1", "Greedy_H2_D1", "Random_H1_D1", "Random_H2_D1")
 )
 
+
+
+t.test(BG1_D0,
+       BR1_D0, 
+       mu = 0,
+       alternative = "two.sided",
+       paired = TRUE,
+       conf.level = 0.95)
+
