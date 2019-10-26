@@ -52,6 +52,16 @@ NG2_D1 <- G2_D1$NODE
 NO2_D1 <- O2_D1$NODE
 NR2_D1 <- R2_D1$NODE
 
+
+DIF1_D0 <- BG1_D0 - BO1_D0
+DIF1_DOP <- length(DIF1_D0[which(DIF1_D0 >= 0)])
+DIF1_DON <- length(DIF1_D0[which(DIF1_D0 < 0)])
+
+plot(DIF1_D0)
+
+
+
+
 boxplot(BG1_D0,BO1_D0,BR1_D0,
         main = "Comparacion de Beneficios Demanda 0 Heuristic 1",
         at = c(1,2,3),
