@@ -53,13 +53,119 @@ NO2_D1 <- O2_D1$NODE
 NR2_D1 <- R2_D1$NODE
 
 
-DIF1_D0 <- BG1_D0 - BO1_D0
-DIF1_DOP <- length(DIF1_D0[which(DIF1_D0 >= 0)])
-DIF1_DON <- length(DIF1_D0[which(DIF1_D0 < 0)])
+D <- BG1_D0 - BO1_D0
+D1 <- length(D[which(D >= 0)])
+D2 <- length(D[which(D < 0)])
+n <- c(D1,D2)
 
-plot(DIF1_D0)
+barplot(n, col = c("blue","red"), ylim = c(0,100), legend = n, 
+        main = "Numero de veces donde el beneficio de \n Greedy mayor que Ordenado \n [Heuristic1-Demanda0]",
+        names.arg = c("Superior", "Inferior"))
 
 
+D <- BG2_D0 - BO2_D0
+D1 <- length(D[which(D >= 0)])
+D2 <- length(D[which(D < 0)])
+n = c(D1,D2)
+
+barplot(n, col = c("blue","red"), ylim = c(0,100), legend = n, 
+        main = "Numero de veces donde el beneficio de \n Greedy mayor que Ordenado [Heuristic2-Demanda0]",
+        names.arg = c("Superior", "Inferior"))
+
+D <- BG1_D1 - BO1_D1
+D1 <- length(D[which(D >= 0)])
+D2 <- length(D[which(D < 0)])
+n <- c(D1,D2)
+
+barplot(n, col = c("blue","red"), ylim = c(0,100), legend = n, 
+        main = "Numero de veces donde el beneficio de \n Greedy mayor que Ordenado \n [Heuristic1-Demanda1]",
+        names.arg = c("Superior", "Inferior"))
+
+
+D <- BG2_D1 - BO2_D1
+D1 <- length(D[which(D >= 0)])
+D2 <- length(D[which(D < 0)])
+n = c(D1,D2)
+
+barplot(n, col = c("blue","red"), ylim = c(0,100), legend = n, 
+        main = "Numero de veces donde el beneficio de \n Greedy mayor que Ordenado [Heuristic2-Demanda1]",
+        names.arg = c("Superior", "Inferior"))
+
+D <- BR1_D0 - BO1_D0
+D1 <- length(D[which(D >= 0)])
+D2 <- length(D[which(D < 0)])
+n <- c(D1,D2)
+
+barplot(n, col = c("blue","red"), ylim = c(0,100), legend = n, 
+        main = "Numero de veces donde el beneficio de \n Random mayor que Ordenado \n [Heuristic1-Demanda0]",
+        names.arg = c("Superior", "Inferior"))
+
+
+D <- BR2_D0 - BO2_D0
+D1 <- length(D[which(D >= 0)])
+D2 <- length(D[which(D < 0)])
+n = c(D1,D2)
+
+barplot(n, col = c("blue","red"), ylim = c(0,100), legend = n, 
+        main = "Numero de veces donde el beneficio de \n Random mayor que Ordenado [Heuristic2-Demanda0]",
+        names.arg = c("Superior", "Inferior"))
+
+D <- BR1_D1 - BO1_D1
+D1 <- length(D[which(D >= 0)])
+D2 <- length(D[which(D < 0)])
+n <- c(D1,D2)
+
+barplot(n, col = c("blue","red"), ylim = c(0,100), legend = n, 
+        main = "Numero de veces donde el beneficio de \n Random mayor que Ordenado \n [Heuristic1-Demanda1]",
+        names.arg = c("Superior", "Inferior"))
+
+
+D <- BR2_D1 - BO2_D1
+D1 <- length(D[which(D >= 0)])
+D2 <- length(D[which(D < 0)])
+n = c(D1,D2)
+
+barplot(n, col = c("blue","red"), ylim = c(0,100), legend = n, 
+        main = "Numero de veces donde el beneficio de \n Random mayor que Ordenado [Heuristic2-Demanda1]",
+        names.arg = c("Superior", "Inferior"))
+
+D <- BG1_D0 - BR1_D0
+D1 <- length(D[which(D >= 0)])
+D2 <- length(D[which(D < 0)])
+n <- c(D1,D2)
+
+barplot(n, col = c("blue","red"), ylim = c(0,100), legend = n, 
+        main = "Numero de veces donde el beneficio de \n Greedy mayor que Random \n [Heuristic1-Demanda0]",
+        names.arg = c("Superior", "Inferior"))
+
+
+D <- BG2_D0 - BR2_D0
+D1 <- length(D[which(D >= 0)])
+D2 <- length(D[which(D < 0)])
+n = c(D1,D2)
+
+barplot(n, col = c("blue","red"), ylim = c(0,100), legend = n, 
+        main = "Numero de veces donde el beneficio de \n Greedy mayor que Random [Heuristic2-Demanda0]",
+        names.arg = c("Superior", "Inferior"))
+
+D <- BG1_D1 - BR1_D1
+D1 <- length(D[which(D >= 0)])
+D2 <- length(D[which(D < 0)])
+n <- c(D1,D2)
+
+barplot(n, col = c("blue","red"), ylim = c(0,100), legend = n, 
+        main = "Numero de veces donde el beneficio de \n Greedy mayor que Random \n [Heuristic1-Demanda1]",
+        names.arg = c("Superior", "Inferior"))
+
+
+D <- BG2_D1 - BR2_D1
+D1 <- length(D[which(D >= 0)])
+D2 <- length(D[which(D < 0)])
+n = c(D1,D2)
+
+barplot(n, col = c("blue","red"), ylim = c(0,100), legend = n, 
+        main = "Numero de veces donde el beneficio de \n Greedy mayor que Random [Heuristic2-Demanda1]",
+        names.arg = c("Superior", "Inferior"))
 
 
 boxplot(BG1_D0,BO1_D0,BR1_D0,
