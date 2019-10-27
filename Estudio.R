@@ -62,6 +62,48 @@ NR2_D1 <- R2_D1$NODE
 library(RColorBrewer)
 coul <- brewer.pal(5, "Set2")
 
+
+
+
+D <- BG1_D0_A - BR1_D0_A
+D1 <- length(D[which(D >= 0)])
+D2 <- length(D[which(D < 0)])
+n <- c(D1,D2)
+
+barplot(n, col = coul, ylim = c(0,100), legend = n, 
+        main = "Numero de veces donde el beneficio de \n Greedy mayor que Random (Operador Dejar) \n",
+        names.arg = c("Superior", "Inferior"))
+
+D <- BG1_D0_A - BO1_D0_A
+D1 <- length(D[which(D >= 0)])
+D2 <- length(D[which(D < 0)])
+n <- c(D1,D2)
+
+barplot(n, col = coul, ylim = c(0,100), legend = n, 
+        main = "Numero de veces donde el beneficio de \n Greedy mayor que Ordenado (Operador Dejar)\n",
+        names.arg = c("Superior", "Inferior"))
+
+
+D <- BG1_D0 - BR1_D0
+D1 <- length(D[which(D >= 0)])
+D2 <- length(D[which(D < 0)])
+n <- c(D1,D2)
+
+barplot(n, col = coul, ylim = c(0,100), legend = n, 
+        main = "Numero de veces donde el beneficio de \n Greedy mayor que Random (Operador Dejar+Pasar) \n",
+        names.arg = c("Superior", "Inferior"))
+
+D <- BG1_D0 - BO1_D0
+D1 <- length(D[which(D >= 0)])
+D2 <- length(D[which(D < 0)])
+n <- c(D1,D2)
+
+barplot(n, col = coul, ylim = c(0,100), legend = n, 
+        main = "Numero de veces donde el beneficio de \n Greedy mayor que Ordenado (Operador Dejar+Pasar)\n",
+        names.arg = c("Superior", "Inferior"))
+
+
+
 D <- BG1_D0 - BO1_D0
 D1 <- length(D[which(D >= 0)])
 D2 <- length(D[which(D < 0)])
@@ -291,6 +333,9 @@ boxplot(BG1_D0, BO1_D0, BR1_D0,
         at = c(1,2,3),
         names = c("Greedy", "Ordered", "Random")
 )
+
+
+
 
 
 t.test(BG1_D0,
