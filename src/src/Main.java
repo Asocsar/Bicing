@@ -30,7 +30,7 @@ public class Main {
     }
 
     public static void main(String[] args) throws IOException {
-        pruebaR(true,0);
+        pruebaR(true,1);
     }
 
     public static void pruebaO (boolean h1, int d1) throws IOException {
@@ -140,7 +140,7 @@ public class Main {
             MedT /= num;
             MedB = (Math.round(MedB*100.0)/100.0);
             Writer output;
-            output = new BufferedWriter(new FileWriter("Estadisticas_" + Cas + "_D" + D + "_H" + H + ".txt", true));
+            output = new BufferedWriter(new FileWriter("Estadisticas_" + Cas + "_D" + D + "_H" + H + "_1A.txt", true));
             String sep = ",";
             String S = MedB + sep + MedT + sep + MedN;
             S = S + '\n';
