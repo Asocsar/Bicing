@@ -280,6 +280,18 @@ names = c("Dejar+Pasar", "Dejar")
 )
 
 
+boxplot(BG1_D0_A, BO1_D0_A, BR1_D0_A,
+        main = "Comparacion de Beneficios para operador Dejar",
+        at = c(1,2,3),
+        names = c("Greedyr", "Ordered", "Random")
+)
+
+boxplot(BG1_D0, BO1_D0, BR1_D0,
+        main = "Comparacion de Beneficios para operador Dejar+Pasar",
+        at = c(1,2,3),
+        names = c("Greedyr", "Ordered", "Random")
+)
+
 
 t.test(BG1_D0,
        BR1_D0, 
