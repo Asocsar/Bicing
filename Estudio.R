@@ -335,9 +335,6 @@ boxplot(BG1_D0, BO1_D0, BR1_D0,
 )
 
 
-
-
-
 t.test(BG1_D0,
        BR1_D0, 
        mu = 0,
