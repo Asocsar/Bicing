@@ -5,8 +5,6 @@
 
 import Estado.Estado;
 import Check.isGoal;
-import Heurisitc_Function_1.Heuristic_Function;
-//import Heuristic_Function_2.Heuristic_Function;
 import IA.Bicing.Estaciones;
 import IA.Bicing.Estacion;
 import Sucesores.sucesores;
@@ -24,12 +22,15 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
 
+//import Heurisitc_Function_1.Heuristic_Function;
+import Heuristic_Function_2.Heuristic_Function;
+
 public class Main {
     public Main() {
     }
 
     public static void main(String[] args) throws IOException {
-        pruebaG(true,0);
+        pruebaR(false,1);
     }
 
     public static void pruebaO (boolean h1, int d1) throws IOException {
