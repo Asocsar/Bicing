@@ -29,17 +29,27 @@ public class Main {
     }
 
     public static void main(String[] args) throws IOException {
-        pruebaR();
+        pruebaG(true,0);
     }
 
-    public static void pruebaO () throws IOException {
+    public static void pruebaO (boolean h1, int d1) throws IOException {
         File file = new File("Sedds.txt");
         BufferedReader br = new BufferedReader(new FileReader(file));
+        String H = null;
+        if (h1) H = "1";
+        else H = "2";
+        int n_est = 25;
+        int nbicis = 1250;
+        int nfurgo = 5;
+        String D = null;
+        if (d1 == 1) D = "1";
+        else D = "0";
+        int cas = 0;
+        String S = "Ord";
         for (int i = 0; i < 100; ++i) {
             System.out.println(i);
             int s = Integer.parseInt(br.readLine());
-            Estado Bicing = new Estado(25,1250,5,1,s,0);
-            BicingHillClimbingSearch(Bicing, 1);
+            BicingHillClimbingSearch(1, n_est, nbicis, nfurgo, d1, cas, S, H, D, s);
         }
 
         //Estado Bicing = new Estado(25,1250,5,0,1234);
@@ -49,14 +59,24 @@ public class Main {
         System.out.println("Execution in Miliseconds " + (EndTime-StartTime)/1000000);*/
     }
 
-    public static void pruebaG () throws IOException {
+    public static void pruebaG (boolean h1, int d1) throws IOException {
         File file = new File("Sedds.txt");
         BufferedReader br = new BufferedReader(new FileReader(file));
+        String H = null;
+        if (h1) H = "1";
+        else H = "2";
+        int n_est = 25;
+        int nbicis = 1250;
+        int nfurgo = 5;
+        String D = null;
+        if (d1 == 1) D = "1";
+        else D = "0";
+        int cas = 1;
+        String S = "G";
         for (int i = 0; i < 100; ++i) {
             System.out.println(i);
             int s = Integer.parseInt(br.readLine());
-            Estado Bicing = new Estado(25,1250,5,1,s,1);
-            BicingHillClimbingSearch(Bicing, 1);
+            BicingHillClimbingSearch(1, n_est, nbicis, nfurgo, d1, cas, S, H, D, s);
         }
 
         //Estado Bicing = new Estado(25,1250,5,0,1234);
@@ -66,13 +86,23 @@ public class Main {
         System.out.println("Execution in Miliseconds " + (EndTime-StartTime)/1000000);*/
     }
 
-    public static void pruebaR () throws IOException {
+    public static void pruebaR (boolean h1, int d1) throws IOException {
         File file = new File("Sedds.txt");
+        String H = null;
+        if (h1) H = "1";
+        else H = "2";
+        int n_est = 25;
+        int nbicis = 1250;
+        int nfurgo = 5;
+        String D = null;
+        if (d1 == 1) D = "1";
+        else D = "0";
+        int cas = 2;
+        String S = "Rnd";
         BufferedReader br = new BufferedReader(new FileReader(file));
         for (int i = 0; i < 100; ++i) {
             int s = Integer.parseInt(br.readLine());
-            Estado Bicing = new Estado(25, 1250, 5, 1, s, 2);
-            BicingHillClimbingSearch(Bicing, 20);
+            BicingHillClimbingSearch(20, n_est, nbicis, nfurgo, d1, cas, S, H, D, s);
         }
         /*
         System.out.println("Execution in Miliseconds " + (EndTime-StartTime)/1000000);
@@ -82,7 +112,7 @@ public class Main {
         System.out.println("Execution in Miliseconds " + (EndTime-StartTime)/1000000);*/
     }
 
-    private static void BicingHillClimbingSearch(Estado Bicing, int num) {
+    private static void BicingHillClimbingSearch(int num, int n_est, int nbicis, int nfurgo, int d1, int cas, String Cas, String H, String D, int s) {
         //System.out.println("\nTSP HillClimbing  -->");
 
 
@@ -91,9 +121,9 @@ public class Main {
             double MedN = 0;
             double MedB = 0;
             for (int i = 0; i < num; ++i) {
-                Estado TSPB = Bicing.clonar();
+                Estado Bicing = new Estado(n_est,nbicis,nfurgo,d1,s,cas);
                 long StartTime = System.nanoTime();
-                Problem problem = new Problem(TSPB, new sucesores(), new isGoal(), new Heuristic_Function());
+                Problem problem = new Problem(Bicing, new sucesores(), new isGoal(), new Heuristic_Function());
                 Search search = new HillClimbingSearch();
                 SearchAgent agent = new SearchAgent(problem, search);
                 Properties properties = agent.getInstrumentation();
@@ -109,7 +139,7 @@ public class Main {
             MedT /= num;
             MedB = (Math.round(MedB*100.0)/100.0);
             Writer output;
-            output = new BufferedWriter(new FileWriter("Estadisticas_Rnd_D1_H1_1A.txt", true));
+            output = new BufferedWriter(new FileWriter("Estadisticas_" + Cas + "_D" + D + "_H" + H + ".txt", true));
             String sep = ",";
             String S = MedB + sep + MedT + sep + MedN;
             S = S + '\n';
