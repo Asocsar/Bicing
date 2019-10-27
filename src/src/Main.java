@@ -29,7 +29,7 @@ public class Main {
     }
 
     public static void main(String[] args) throws IOException {
-        pruebaR();
+        pruebaG();
     }
 
     public static void pruebaO () throws IOException {
@@ -91,7 +91,10 @@ public class Main {
             double MedN = 0;
             double MedB = 0;
             for (int i = 0; i < num; ++i) {
+                /*if (num == 1) TSPB = Bicing.clonar();
+                else TSPB = new Estado(25,1250,5,0,Bicing.seeds, 1);*/
                 Estado TSPB = Bicing.clonar();
+
                 long StartTime = System.nanoTime();
                 Problem problem = new Problem(TSPB, new sucesores(), new isGoal(), new Heuristic_Function());
                 Search search = new HillClimbingSearch();

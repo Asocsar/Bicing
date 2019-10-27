@@ -15,7 +15,7 @@ public class Estado {
     private static int num_ests;
     private static int nbiciss;
     private static int demandas;
-    private static int seeds;
+    public static int seeds;
     private double cdesp;
     private static int n_furgo;
     private boolean [] visited;
