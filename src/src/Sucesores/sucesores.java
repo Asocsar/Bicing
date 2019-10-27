@@ -16,7 +16,7 @@ public class sucesores implements SuccessorFunction {
         int n_furgo = Est.getN_furgo();
         int n_est = Est.getNum_est();
         int n_int = 5;
-        int n_acc = 1;
+        int n_acc = 2;
         int interval = n_int;
         int veces = n_furgo/interval;
         if (n_furgo%interval != 0) ++veces;

@@ -15,7 +15,7 @@ public class Estado {
     private static int num_ests;
     private static int nbiciss;
     private static int demandas;
-    public static int seeds;
+    private static int seeds;
     private double cdesp;
     private static int n_furgo;
     private boolean [] visited;
@@ -274,12 +274,12 @@ public class Estado {
         for (int i = 0; i < n_furgo || i < num_ests; ++i) {
             if (i < n_furgo)
                 E.setFurgo((Van) this.Furgonetas[i].clone(), i);
-            else if (i < num_ests) {
-                aux.get(i).setNumBicicletasNoUsadas(this.Est.get(i).getNumBicicletasNoUsadas());
-                aux.get(i).setNumBicicletasNext(this.Est.get(i).getNumBicicletasNext());
-                aux.get(i).setDemanda(this.Est.get(i).getDemanda());
+                else if (i < num_ests) {
+                    aux.get(i).setNumBicicletasNoUsadas(this.Est.get(i).getNumBicicletasNoUsadas());
+                    aux.get(i).setNumBicicletasNext(this.Est.get(i).getNumBicicletasNext());
+                    aux.get(i).setDemanda(this.Est.get(i).getDemanda());
+                }
             }
-        }
         E.setEstaciones(aux);
         return E;
     }
