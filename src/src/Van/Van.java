@@ -18,13 +18,13 @@ public class Van  implements  Cloneable{
 
     }
 
-    public double move (int x, int y) {
+    public int move (int x, int y) {
         int cost = Math.abs(this.CordX-x) + Math.abs(this.CordY-y);
         this.long_t += cost;
         this.CordX = x;
         this.CordY = y;
         this.last_cost += (cost/1000.0)*((this.charge+9)/10);
-        return last_cost;
+        return (int)last_cost;
     }
 
     public void pickUp(int number, Estaciones e, int i) {

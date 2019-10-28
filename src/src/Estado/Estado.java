@@ -21,6 +21,9 @@ public class Estado {
     private boolean [] visited;
     private Van [] Furgonetas;
     private int caso;
+    private double [] list_cdesp;
+    private int iter;
+    private static int max_iter;
 
     public Estado () {
 
@@ -201,21 +204,21 @@ public class Estado {
     public double Dejar (int i_furgo) {
         int max_ben = 0;
         int i_est = 0;
+        int carga = 0;
         Van V = Furgonetas[i_furgo];
         for (int i = 0; i < Est.size(); ++i) {
             Estacion E = Est.get(i);
-            int cost = ((V.carga()*9)/10)*((Math.abs(V.getCordX()-E.getCoordX()) + Math.abs(V.getCordY()-E.getCoordY()))/1000);
+            int cost = ((V.carga()+9)/10)*((Math.abs(V.getCordX()-E.getCoordX()) + Math.abs(V.getCordY()-E.getCoordY()))/1000);
             int Dif = E.getDemanda() - E.getNumBicicletasNext();
             int ganancia = 0;
             if (Dif > V.carga()) ganancia =  V.carga();
             else ganancia = Dif;
             int total =  ganancia - cost;
-            if (total > max_ben) {max_ben = total; i_est = i;}
+            if (total > max_ben) {max_ben = total; i_est = i; carga = ganancia;}
         }
-        max_ben = Math.min(max_ben, V.carga());
         double cost = Furgonetas[i_furgo].move(Est.get(i_est).getCoordX(), Est.get(i_est).getCoordY());
-        Furgonetas[i_furgo].leave(max_ben, Est, i_est);
-        return max_ben - cost;
+        Furgonetas[i_furgo].leave(carga, Est, i_est);
+        return max_ben;
     }
 
 
@@ -258,12 +261,38 @@ public class Estado {
 
     private void setDemandas(int n) {demandas = n;}
 
+    public void addList_cdesp (double n) {
+        //System.out.println(this.iter);
+        this.list_cdesp[this.iter] = (int) n;
+        this.iter = this.iter + 1;
+
+    }
+
+    public void  setList_cdesp (int n) {
+
+        this.list_cdesp = new double[n+1];
+        this.iter = 0;
+        max_iter = n;
+    }
+
     private void setSeeds (int n) {seeds = n;}
+
+    private void setList_cdesp_val (int i, double aux, int act) {
+        this.list_cdesp[i] = aux;
+        this.iter = act;
+    }
+
+    public double [] getearnings () {return this.list_cdesp;}
 
     public Estaciones getEstaciones () {return this.Est;}
 
     public Estado clonar ()  {
         Estado E = new Estado();
+        E.setList_cdesp(max_iter);
+        for (int i = 0; i < max_iter; ++i) {
+            double aux = this.list_cdesp[i];
+            E.setList_cdesp_val(i, aux, this.iter);
+        }
         E.setNum_est(num_ests, this.visited);
         E.setNbiciss(nbiciss);
         E.setN_furgo(n_furgo);

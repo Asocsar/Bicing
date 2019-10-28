@@ -62,9 +62,6 @@ NR2_D1 <- R2_D1$NODE
 library(RColorBrewer)
 coul <- brewer.pal(5, "Set2")
 
-
-
-
 D <- BG1_D0_A - BR1_D0_A
 D1 <- length(D[which(D >= 0)])
 D2 <- length(D[which(D < 0)])
@@ -333,12 +330,3 @@ boxplot(BG1_D0, BO1_D0, BR1_D0,
         at = c(1,2,3),
         names = c("Greedy", "Ordered", "Random")
 )
-
-
-t.test(BG1_D0,
-       BR1_D0, 
-       mu = 0,
-       alternative = "two.sided",
-       paired = TRUE,
-       conf.level = 0.95)
-

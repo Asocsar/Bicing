@@ -30,7 +30,15 @@ public class Main {
     }
 
     public static void main(String[] args) throws IOException {
-        pruebaR(true,1);
+
+        boolean h1 = true;
+        pruebaG(h1,0);
+        pruebaO(h1,0);
+        pruebaR(h1,0);
+
+        pruebaG(h1,1);
+        pruebaO(h1,1);
+        pruebaR(h1,1);
     }
 
     public static void pruebaO (boolean h1, int d1) throws IOException {
@@ -75,9 +83,10 @@ public class Main {
         int cas = 1;
         String S = "G";
         for (int i = 0; i < 100; ++i) {
-            System.out.println(i);
+            //System.out.println(i);
             int s = Integer.parseInt(br.readLine());
             BicingHillClimbingSearch(1, n_est, nbicis, nfurgo, d1, cas, S, H, D, s);
+            //BicingsimulatedAnnealingSearch(1,n_est,nbicis,nfurgo,d1,cas,S,H,D,s);
         }
 
         //Estado Bicing = new Estado(25,1250,5,0,1234);
@@ -161,21 +170,50 @@ public class Main {
 
     }
 
-    private static void BicingsimulatedAnnealingSearch(Estado Bicing) {
-        System.out.println("\nTSP Simulated Annealing  -->");
+    private static void BicingsimulatedAnnealingSearch(int num, int n_est, int nbicis, int nfurgo, int d1, int cas, String Cas, String H, String D, int s) {
+        //System.out.println("\nTSP Simulated Annealing  -->");
+
 
         try {
-            Problem problem = new Problem(Bicing, new sucesoresA(), new isGoal(), new Heuristic_Function());
-            SimulatedAnnealingSearch search = new SimulatedAnnealingSearch(2000, 200, 10, 0.001D);
-            SearchAgent agent = new SearchAgent(problem, search);
-            Estado E = (Estado) search.getGoalState();
 
-            for (int i = 0; i < E.getN_furgo(); ++i) {
-                System.out.println("Recorrido por furgoneta " + i + "  " + E.getIFurgo(i).getLong_t());
+            double MedT = 0;
+            //double MedN = 0;
+            //double MedB = 0;
+            int iteraciones = 100;
+            Estado Bicing = new Estado(n_est,nbicis,nfurgo,d1,s,1);
+            Bicing.setList_cdesp(iteraciones);
+            long StartTime = System.nanoTime();
+            Problem problem = new Problem(Bicing, new sucesoresA(), new isGoal(), new Heuristic_Function());
+            SimulatedAnnealingSearch search = new SimulatedAnnealingSearch(iteraciones, 1000, 125, 0.00001D);
+            SearchAgent agent = new SearchAgent(problem, search);
+            List L = search.getPathStates();
+            Properties properties = agent.getInstrumentation();
+            long EndTime = System.nanoTime();
+            Estado E = (Estado) search.getGoalState();
+            long time = ((EndTime - StartTime) / 1000000);
+            MedT += time;
+            //MedB += E.getganancia();
+            // MedN += Integer.parseInt(properties.getProperty((String)properties.keySet().iterator().next()));
+            // MedB /= num;
+            // MedN /= num;
+            // MedT /= num;
+            //MedB = (Math.round(MedB*100.0)/100.0);
+            Writer output;
+            output = new BufferedWriter(new FileWriter("Estadisticas_" + Cas + "_D" + D + "_H" + H + "S.txt", true));
+            double [] vec = E.getearnings();
+            for (int i = 0 ; i < iteraciones; ++i) {
+                String S = "" + vec[i];
+                S = S + '\n';
+                output.append(S);
             }
+            output.close();
+
+            /*for (int i = 0; i < E.getN_furgo(); ++i) {
+                System.out.println("Recorrido por furgoneta " + i + "  " + E.getIFurgo(i).getLong_t());
+            }*/
             //printEstado(E);
-            System.out.println();
-            System.out.println(E.getganancia());
+            //System.out.println();
+            //System.out.println(E.getganancia());
             //printActions(agent.getActions());
             //printInstrumentation(agent.getInstrumentation());
         } catch (Exception var4) {
