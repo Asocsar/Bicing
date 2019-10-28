@@ -20,18 +20,9 @@ public class sucesoresA implements SuccessorFunction {
         Estado next_Est = Est.clonar();
         double gan = Est.getganancia();
         double ingres = 0;
-        for (int i = 0; i < n_furgo; ++i) {
-            int decision = myRandom.nextInt(3);
-            /*if (decision == 0 ) {
-                ingres -= next_Est.Coger(i);
-            } else */
-            if (decision == 0 ) {
-                ingres += next_Est.Dejar(i);
-            } else if (decision == 1 ) {
-                ingres += next_Est.Dejar(i);
-                ingres += next_Est.Dejar(i);
-            }
-        }
+        int i = myRandom.nextInt(n_furgo);
+        int sig = myRandom.nextInt(n_est);
+        ingres += next_Est.Dejar(i, sig);
         double ben = gan + ingres;
         next_Est.setganancia(ben);
         next_Est.addList_cdesp(ben);

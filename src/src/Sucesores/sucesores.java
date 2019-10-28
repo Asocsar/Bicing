@@ -27,7 +27,8 @@ public class sucesores implements SuccessorFunction {
             int suma = 0;
             while (suma <= interval*n_acc) {
                 suma = 0;
-                Estado next_Est = Est.clonar();
+                Estado next_Est = null;
+                next_Est = Est.clonar();
                 double ganancia = next_Est.getganancia();
                 double aux = 0;
                 for (int j = i*interval; j < interval*(i+1) && j < n_furgo; ++j) {
@@ -36,11 +37,11 @@ public class sucesores implements SuccessorFunction {
 
                     }*/
                     /*else */if (accion[j%n_int] == 0 ) {
-                        aux += next_Est.Dejar(j);
+                        aux += next_Est.Dejar(j,-1);
                     }
                     else if (accion[j%n_int] == 1 ) {
-                        aux += next_Est.Dejar(j);
-                        aux += next_Est.Dejar(j);
+                        aux += next_Est.Dejar(j,-1);
+                        aux += next_Est.Dejar(j,-1);
                     }
                 }
                 ganancia += aux;

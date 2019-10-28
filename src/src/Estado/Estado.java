@@ -24,17 +24,21 @@ public class Estado {
     private double [] list_cdesp;
     private int iter;
     private static int max_iter;
+    private int [] ak;
 
     public Estado () {
-
+        this.ak = new int[n_furgo];
     }
 
     public Estado (int num_est, int nbicis, int nfurgo, int demanda, int seed, int cas) {
         this.caso = cas;
+        this.ak = new int [nfurgo];
+        Arrays.fill(ak, 2);
         if (cas == 0) generate_o(num_est, nbicis, nfurgo, demanda, seed);
         else if (cas == 1) generate_g(num_est,nbicis,nfurgo,demanda,seed);
         else if (cas == 2) generate_r(num_est,nbicis,nfurgo,demanda,seed);
     }
+
 
     private void generate_r (int num_est, int nbicis, int nfurgo, int demanda, int seed) {
         this.Est = new Estaciones(num_est, nbicis, demanda, seed);
@@ -116,6 +120,7 @@ public class Estado {
                 int y = E.getCoordY();
                 this.Furgonetas[j_fur] = new Van(x, y);
                 int needed = Math.min(cant, (this.Furgonetas[j_fur].carga_max() - this.Furgonetas[j_fur].carga()));
+                F[i_sig].setSecond(F[i_sig].getSecond()-needed);
                 if (needed > 0) this.Furgonetas[j_fur].pickUp(needed, this.Est, i_est);
                 ++j_fur;
             }
@@ -132,6 +137,7 @@ public class Estado {
                 int y = E.getCoordY();
                 this.Furgonetas[j_fur] = new Van(x, y);
                 int needed = Math.min(cant, (this.Furgonetas[j_fur].carga_max() - this.Furgonetas[j_fur].carga()));
+                F[i_sig].setSecond(F[i_sig].getSecond()-needed);
                 if (needed > 0) this.Furgonetas[j_fur].pickUp(needed, this.Est, i_est);
                 ++j_fur;
             }
@@ -182,6 +188,8 @@ public class Estado {
     }
 
     /*public double Coger (int i_furgo) {
+        //if (!this.visited[i_furgo]) this.visited[i_furgo] = true;
+        //else return 0;
         double cost = 20000;
         int x_van = Furgonetas[i_furgo].getCordX();
         int y_van = Furgonetas[i_furgo].getCordY();
@@ -201,21 +209,42 @@ public class Estado {
     }*/
 
 
-    public double Dejar (int i_furgo) {
+    public double Dejar (int i_furgo, int j) {
+        if (this.ak[i_furgo] == 0) return 0;
+        else this.ak[i_furgo] -= 1;
         int max_ben = 0;
         int i_est = 0;
         int carga = 0;
         Van V = Furgonetas[i_furgo];
-        for (int i = 0; i < Est.size(); ++i) {
-            Estacion E = Est.get(i);
-            int cost = ((V.carga()+9)/10)*((Math.abs(V.getCordX()-E.getCoordX()) + Math.abs(V.getCordY()-E.getCoordY()))/1000);
+        if (j == -1) {
+            for (int i = 0; i < Est.size(); ++i) {
+                Estacion E = Est.get(i);
+                int cost = ((V.carga() + 9) / 10) * ((Math.abs(V.getCordX() - E.getCoordX()) + Math.abs(V.getCordY() - E.getCoordY())) / 1000);
+                int Dif = E.getDemanda() - E.getNumBicicletasNext() - E.getNumBicicletasNoUsadas();
+                int ganancia = 0;
+                if (Dif > V.carga()) ganancia = V.carga();
+                else ganancia = Dif;
+                int total = ganancia - cost;
+                if (total > max_ben) {
+                    max_ben = total;
+                    i_est = i;
+                    carga = ganancia;
+                }
+            }
+        }
+        else {
+            Estacion E = Est.get(j);
+            int cost = ((V.carga() + 9) / 10) * ((Math.abs(V.getCordX() - E.getCoordX()) + Math.abs(V.getCordY() - E.getCoordY())) / 1000);
             int Dif = E.getDemanda() - E.getNumBicicletasNext();
             int ganancia = 0;
-            if (Dif > V.carga()) ganancia =  V.carga();
+            if (Dif > V.carga()) ganancia = V.carga();
             else ganancia = Dif;
-            int total =  ganancia - cost;
-            if (total > max_ben) {max_ben = total; i_est = i; carga = ganancia;}
+            int total = ganancia - cost;
+            max_ben = total;
+            i_est = j;
+            carga = ganancia;
         }
+        carga = Math.min(carga,V.carga());
         double cost = Furgonetas[i_furgo].move(Est.get(i_est).getCoordX(), Est.get(i_est).getCoordY());
         Furgonetas[i_furgo].leave(carga, Est, i_est);
         return max_ben;
@@ -286,12 +315,19 @@ public class Estado {
 
     public Estaciones getEstaciones () {return this.Est;}
 
+    public void addAk (int j) {this.ak[j] += 1;}
+
+    public void setAk (int j, int k) {this.ak[j] = k;}
+
     public Estado clonar ()  {
         Estado E = new Estado();
         E.setList_cdesp(max_iter);
         for (int i = 0; i < max_iter; ++i) {
             double aux = this.list_cdesp[i];
             E.setList_cdesp_val(i, aux, this.iter);
+        }
+        for (int i = 0; i < n_furgo; ++i) {
+            E.setAk(i, this.ak[i]);
         }
         E.setNum_est(num_ests, this.visited);
         E.setNbiciss(nbiciss);

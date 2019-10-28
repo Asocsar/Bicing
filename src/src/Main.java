@@ -18,27 +18,32 @@ import aima.search.informed.SimulatedAnnealingSearch;
 import sucesoresA.sucesoresA;
 
 import java.io.*;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
 
-//import Heurisitc_Function_1.Heuristic_Function;
-import Heuristic_Function_2.Heuristic_Function;
+import Heurisitc_Function_1.Heuristic_Function;
+//import Heuristic_Function_2.Heuristic_Function;
 
 public class Main {
+
+    static double [] T = new double[100];
+
     public Main() {
     }
 
     public static void main(String[] args) throws IOException {
+        Arrays.fill(T, 0);
 
-        boolean h1 = false;
+        boolean h1 = true;
         pruebaG(h1,0);
-        pruebaO(h1,0);
-        pruebaR(h1,0);
+        //pruebaO(h1,0);
+        //pruebaR(h1,0);
 
-        pruebaG(h1,1);
-        pruebaO(h1,1);
-        pruebaR(h1,1);
+        //pruebaG(h1,1);
+        //pruebaO(h1,1);
+        //pruebaR(h1,1);
     }
 
     public static void pruebaO (boolean h1, int d1) throws IOException {
@@ -58,7 +63,7 @@ public class Main {
         for (int i = 0; i < 100; ++i) {
             System.out.println(i);
             int s = Integer.parseInt(br.readLine());
-            BicingHillClimbingSearch(1, n_est, nbicis, nfurgo, d1, cas, S, H, D, s);
+           // BicingHillClimbingSearch(1, n_est, nbicis, nfurgo, d1, cas, S, H, D, s);
         }
 
         //Estado Bicing = new Estado(25,1250,5,0,1234);
@@ -82,12 +87,21 @@ public class Main {
         else D = "0";
         int cas = 1;
         String S = "G";
-        for (int i = 0; i < 100; ++i) {
+        int s = Integer.parseInt(br.readLine());
+        //for (int i = 0; i < 10; ++i) {
+            int i = 29;
             //System.out.println(i);
-            int s = Integer.parseInt(br.readLine());
-            BicingHillClimbingSearch(1, n_est, nbicis, nfurgo, d1, cas, S, H, D, s);
-            //BicingsimulatedAnnealingSearch(1,n_est,nbicis,nfurgo,d1,cas,S,H,D,s);
-        }
+            //System.out.println(i);
+            //n_est = n_est + 25*i;
+            //nbicis = n_est*50;
+            //nfurgo = 200;
+            //BicingHillClimbingSearch(1, n_est, nbicis, nfurgo, d1, cas, S, H, D, s, i);
+            BicingsimulatedAnnealingSearch(1,n_est,nbicis,nfurgo,d1,cas,S,H,D,s);
+        //}
+
+        /*for (int i = 0; i < 100; ++i) {
+            System.out.println("Tiempo " + T[i]);
+        }*/
 
         //Estado Bicing = new Estado(25,1250,5,0,1234);
         /*long StartTime = System.nanoTime();
@@ -112,7 +126,7 @@ public class Main {
         BufferedReader br = new BufferedReader(new FileReader(file));
         for (int i = 0; i < 100; ++i) {
             int s = Integer.parseInt(br.readLine());
-            BicingHillClimbingSearch(20, n_est, nbicis, nfurgo, d1, cas, S, H, D, s);
+            //BicingHillClimbingSearch(20, n_est, nbicis, nfurgo, d1, cas, S, H, D, s);
         }
         /*
         System.out.println("Execution in Miliseconds " + (EndTime-StartTime)/1000000);
@@ -122,7 +136,7 @@ public class Main {
         System.out.println("Execution in Miliseconds " + (EndTime-StartTime)/1000000);*/
     }
 
-    private static void BicingHillClimbingSearch(int num, int n_est, int nbicis, int nfurgo, int d1, int cas, String Cas, String H, String D, int s) {
+    private static void BicingHillClimbingSearch(int num, int n_est, int nbicis, int nfurgo, int d1, int cas, String Cas, String H, String D, int s, int k) {
         //System.out.println("\nTSP HillClimbing  -->");
 
 
@@ -139,6 +153,7 @@ public class Main {
                 Properties properties = agent.getInstrumentation();
                 long EndTime = System.nanoTime();
                 Estado E = (Estado) search.getGoalState();
+                System.out.println(E.getganancia());
                 long time = ((EndTime - StartTime) / 1000000);
                 MedT += time;
                 MedB += E.getganancia();
@@ -147,11 +162,12 @@ public class Main {
             MedB /= num;
             MedN /= num;
             MedT /= num;
+            T[k] = MedT;
             MedB = (Math.round(MedB*100.0)/100.0);
             Writer output;
-            output = new BufferedWriter(new FileWriter("Estadisticas_" + Cas + "_D" + D + "_H" + H + "_1A.txt", true));
+            output = new BufferedWriter(new FileWriter("Estadisticas_" + Cas + "_D" + D + "_H" + H + "thfrh_T.txt", true));
             String sep = ",";
-            String S = MedB + sep + MedT + sep + MedN;
+            String S = MedT + sep + n_est;
             S = S + '\n';
             output.append(S);
             output.close();
@@ -179,12 +195,12 @@ public class Main {
             double MedT = 0;
             //double MedN = 0;
             //double MedB = 0;
-            int iteraciones = 100;
-            Estado Bicing = new Estado(n_est,nbicis,nfurgo,d1,s,1);
+            int iteraciones = 2000;
+            Estado Bicing = new Estado(n_est,nbicis,nfurgo,d1,427,1);
             Bicing.setList_cdesp(iteraciones);
             long StartTime = System.nanoTime();
             Problem problem = new Problem(Bicing, new sucesoresA(), new isGoal(), new Heuristic_Function());
-            SimulatedAnnealingSearch search = new SimulatedAnnealingSearch(iteraciones, 1000, 125, 0.00001D);
+            SimulatedAnnealingSearch search = new SimulatedAnnealingSearch(iteraciones, 100, 5, 0.00001D);
             SearchAgent agent = new SearchAgent(problem, search);
             List L = search.getPathStates();
             Properties properties = agent.getInstrumentation();

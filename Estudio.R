@@ -344,12 +344,14 @@ boxplot(BG1_D0_A, BG2_D0_A,
         at = c(1,2),
         names = c("Heuristic 1", "Heuristic 2"))
 
+
 boxplot(BO1_D0_A, BO2_D0_A,
-main = "1 Accion, Ordered [H1 vs H2]",
-at = c(1,2),
-names = c("Heuristic 1", "Heuristic 2"))
+        main = "1 Accion, Ordered [H1 vs H2]",
+        at = c(1,2),
+        names = c("Heuristic 1", "Heuristic 2"))
+
 
 boxplot(BR1_D0_A, BR2_D0_A,
-main = "1 Accion, Random [H1 vs H2]",
-at = c(1,2),
-names = c("Heuristic 1", "Heuristic 2"))
+        main = "1 Accion, Random [H1 vs H2]",
+        at = c(1,2),
+        names = c("Heuristic 1", "Heuristic 2"))

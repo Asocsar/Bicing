@@ -30,12 +30,12 @@ public class Van  implements  Cloneable{
     public void pickUp(int number, Estaciones e, int i) {
         this.charge = this.charge + number;
         e.get(i).setNumBicicletasNoUsadas(e.get(i).getNumBicicletasNoUsadas()-number);
-        e.get(i).setNumBicicletasNext(e.get(i).getNumBicicletasNext()-number);
+        //e.get(i).setNumBicicletasNext(e.get(i).getNumBicicletasNext()-number);
     }
 
     public void leave(int number, Estaciones e, int i) {
         this.charge = this.charge - number;
-        e.get(i).setNumBicicletasNext(e.get(i).getNumBicicletasNext()+number);
+        //e.get(i).setNumBicicletasNext(e.get(i).getNumBicicletasNext()+number);
         e.get(i).setNumBicicletasNoUsadas(e.get(i).getNumBicicletasNoUsadas()+number);
     }
 
