@@ -18,32 +18,46 @@ import aima.search.informed.SimulatedAnnealingSearch;
 import sucesoresA.sucesoresA;
 
 import java.io.*;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Properties;
+import java.util.*;
 
-import Heurisitc_Function_1.Heuristic_Function;
-//import Heuristic_Function_2.Heuristic_Function;
+//import Heurisitc_Function_1.Heuristic_Function;
+import Heuristic_Function_2.Heuristic_Function;
 
 public class Main {
 
-    static double [] T = new double[100];
 
     public Main() {
     }
 
     public static void main(String[] args) throws IOException {
-        Arrays.fill(T, 0);
 
-        boolean h1 = true;
-        pruebaG(h1,0);
-        //pruebaO(h1,0);
-        //pruebaR(h1,0);
+        Scanner S = new Scanner(System.in);
+        System.out.println("Introduzca: \n 0 para Ordered \n 1 para Greedy \n 2 para Random");
+        int n = S.nextInt();
+        if (n == 0) {
+            System.out.println("Introduzca: \n 0 para Hora normal \n 1 para Hora Punta");
+            int m = S.nextInt();
+            System.out.println("Introduzca: \n 1 para priorizar beneficios (Heuristico 1) \n 1 para priorizar costes (Heuristico 2)");
+            int k = S.nextInt();
+            pruebaO(m == 0, k);
+        }
 
-        //pruebaG(h1,1);
-        //pruebaO(h1,1);
-        //pruebaR(h1,1);
+        else if (n == 1) {
+            System.out.println("Introduzca: \n 1 para Hora normal \n 1 para Hora Punta");
+            int m = S.nextInt();
+            System.out.println("Introduzca: \n 1 para priorizar beneficios (Heuristico 1) \n 1 para priorizar costes (Heuristico 2)");
+            int k = S.nextInt();
+            pruebaG(m == 0, k);
+
+        }
+
+        else if (n == 2) {
+            System.out.println("Introduzca: \n 1 para Hora normal \n 1 para Hora Punta");
+            int m = S.nextInt();
+            System.out.println("Introduzca: \n 1 para priorizar beneficios (Heuristico 1) \n 1 para priorizar costes (Heuristico 2)");
+            int k = S.nextInt();
+            pruebaR(m == 0, k);
+        }
     }
 
     public static void pruebaO (boolean h1, int d1) throws IOException {
@@ -87,17 +101,16 @@ public class Main {
         else D = "0";
         int cas = 1;
         String S = "G";
-        int s = Integer.parseInt(br.readLine());
-        //for (int i = 0; i < 10; ++i) {
-            int i = 29;
+        for (int i = 0; i < 100; ++i) {
+            int s = Integer.parseInt(br.readLine());
             //System.out.println(i);
             //System.out.println(i);
             //n_est = n_est + 25*i;
             //nbicis = n_est*50;
             //nfurgo = 200;
-            //BicingHillClimbingSearch(1, n_est, nbicis, nfurgo, d1, cas, S, H, D, s, i);
+            BicingHillClimbingSearch(1, n_est, nbicis, nfurgo, d1, cas, S, H, D, s);
             BicingsimulatedAnnealingSearch(1,n_est,nbicis,nfurgo,d1,cas,S,H,D,s);
-        //}
+        }
 
         /*for (int i = 0; i < 100; ++i) {
             System.out.println("Tiempo " + T[i]);
@@ -126,7 +139,7 @@ public class Main {
         BufferedReader br = new BufferedReader(new FileReader(file));
         for (int i = 0; i < 100; ++i) {
             int s = Integer.parseInt(br.readLine());
-            //BicingHillClimbingSearch(20, n_est, nbicis, nfurgo, d1, cas, S, H, D, s);
+            BicingHillClimbingSearch(20, n_est, nbicis, nfurgo, d1, cas, S, H, D, s);
         }
         /*
         System.out.println("Execution in Miliseconds " + (EndTime-StartTime)/1000000);
@@ -136,7 +149,7 @@ public class Main {
         System.out.println("Execution in Miliseconds " + (EndTime-StartTime)/1000000);*/
     }
 
-    private static void BicingHillClimbingSearch(int num, int n_est, int nbicis, int nfurgo, int d1, int cas, String Cas, String H, String D, int s, int k) {
+    private static void BicingHillClimbingSearch(int num, int n_est, int nbicis, int nfurgo, int d1, int cas, String Cas, String H, String D, int s) {
         //System.out.println("\nTSP HillClimbing  -->");
 
 
@@ -144,6 +157,7 @@ public class Main {
             double MedT = 0;
             double MedN = 0;
             double MedB = 0;
+            double longitude = 0;
             for (int i = 0; i < num; ++i) {
                 Estado Bicing = new Estado(n_est,nbicis,nfurgo,d1,s,cas);
                 long StartTime = System.nanoTime();
@@ -155,19 +169,23 @@ public class Main {
                 Estado E = (Estado) search.getGoalState();
                 System.out.println(E.getganancia());
                 long time = ((EndTime - StartTime) / 1000000);
+                for (int k = 0; i < E.getN_furgo(); ++i) {
+                    longitude += E.getIFurgo(k).getLong_t();
+                }
                 MedT += time;
                 MedB += E.getganancia();
                 MedN += Integer.parseInt(properties.getProperty((String)properties.keySet().iterator().next()));
             }
+            longitude /= num;
             MedB /= num;
             MedN /= num;
             MedT /= num;
-            T[k] = MedT;
             MedB = (Math.round(MedB*100.0)/100.0);
+            longitude = (Math.round(longitude*100.0)/100.0);
             Writer output;
-            output = new BufferedWriter(new FileWriter("Estadisticas_" + Cas + "_D" + D + "_H" + H + "thfrh_T.txt", true));
+            output = new BufferedWriter(new FileWriter("Estadisticas_" + Cas + "_D" + D + "_H" + H + "H.txt", true));
             String sep = ",";
-            String S = MedT + sep + n_est;
+            String S = MedB + "," + MedT + "," + longitude;
             S = S + '\n';
             output.append(S);
             output.close();
@@ -193,35 +211,36 @@ public class Main {
         try {
 
             double MedT = 0;
-            //double MedN = 0;
-            //double MedB = 0;
-            int iteraciones = 2000;
-            Estado Bicing = new Estado(n_est,nbicis,nfurgo,d1,427,1);
-            Bicing.setList_cdesp(iteraciones);
+            double MedN = 0;
+            double MedB = 0;
+            int iteraciones = 20000;
+            Estado Bicing = new Estado(n_est,nbicis,nfurgo,d1,s,1);
+            Bicing.setList_cdesp(iteraciones+1);
             long StartTime = System.nanoTime();
             Problem problem = new Problem(Bicing, new sucesoresA(), new isGoal(), new Heuristic_Function());
-            SimulatedAnnealingSearch search = new SimulatedAnnealingSearch(iteraciones, 100, 5, 0.00001D);
+            SimulatedAnnealingSearch search = new SimulatedAnnealingSearch(iteraciones, 100, 20, 0.01D);
             SearchAgent agent = new SearchAgent(problem, search);
             List L = search.getPathStates();
             Properties properties = agent.getInstrumentation();
             long EndTime = System.nanoTime();
             Estado E = (Estado) search.getGoalState();
             long time = ((EndTime - StartTime) / 1000000);
+            double longitude = 0;
+            for (int i = 0; i < E.getN_furgo(); ++i) {
+                longitude += E.getIFurgo(i).getLong_t();
+            }
             MedT += time;
-            //MedB += E.getganancia();
-            // MedN += Integer.parseInt(properties.getProperty((String)properties.keySet().iterator().next()));
-            // MedB /= num;
-            // MedN /= num;
-            // MedT /= num;
-            //MedB = (Math.round(MedB*100.0)/100.0);
+            MedB += E.getganancia();
+            MedN += Integer.parseInt(properties.getProperty((String)properties.keySet().iterator().next()));
+            MedB /= num;
+            MedN /= num;
+            MedT /= num;
+            MedB = (Math.round(MedB*100.0)/100.0);
             Writer output;
             output = new BufferedWriter(new FileWriter("Estadisticas_" + Cas + "_D" + D + "_H" + H + "S.txt", true));
-            double [] vec = E.getearnings();
-            for (int i = 0 ; i < iteraciones; ++i) {
-                String S = "" + vec[i];
-                S = S + '\n';
-                output.append(S);
-            }
+            String S = MedB + "," + MedT + "," + longitude;
+            S = S + '\n';
+            output.append(S);
             output.close();
 
             /*for (int i = 0; i < E.getN_furgo(); ++i) {

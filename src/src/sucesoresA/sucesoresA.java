@@ -12,7 +12,8 @@ public class sucesoresA implements SuccessorFunction {
 
     public List getSuccessors(Object state) {
         Estado Est = (Estado) state;
-        System.out.println(Est.getganancia());
+        Est.addList_cdesp(Est.getganancia());
+        //System.out.println(Est.getganancia());
         ArrayList retVal = new ArrayList();
         int n_furgo = Est.getN_furgo();
         int n_est = Est.getNum_est();
@@ -25,12 +26,12 @@ public class sucesoresA implements SuccessorFunction {
         ingres += next_Est.Dejar(i, sig);
         double ben = gan + ingres;
         next_Est.setganancia(ben);
-        next_Est.addList_cdesp(ben);
-        Est.addList_cdesp(Est.getganancia());
+        //next_Est.addList_cdesp(ben);
+        //Est.addList_cdesp(Est.getganancia());
         if (ben >= 0) retVal.add(new Successor("Beneficio de " + next_Est.getganancia(), next_Est));
-        else {
+        /*else {
             retVal.add(new Successor("Beneficio de " + Est.getganancia(), Est));
-        }
+        }*/
         return retVal;
     }
 }

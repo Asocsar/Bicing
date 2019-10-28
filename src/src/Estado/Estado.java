@@ -21,7 +21,7 @@ public class Estado {
     private boolean [] visited;
     private Van [] Furgonetas;
     private int caso;
-    private double [] list_cdesp;
+    private static double [] list_cdesp;
     private int iter;
     private static int max_iter;
     private int [] ak;
@@ -299,7 +299,7 @@ public class Estado {
 
     public void  setList_cdesp (int n) {
 
-        this.list_cdesp = new double[n+1];
+        this.list_cdesp = new double[n];
         this.iter = 0;
         max_iter = n;
     }
@@ -321,11 +321,11 @@ public class Estado {
 
     public Estado clonar ()  {
         Estado E = new Estado();
-        E.setList_cdesp(max_iter);
-        for (int i = 0; i < max_iter; ++i) {
+        //E.setList_cdesp(max_iter);
+        /*for (int i = 0; i < max_iter; ++i) {
             double aux = this.list_cdesp[i];
             E.setList_cdesp_val(i, aux, this.iter);
-        }
+        }*/
         for (int i = 0; i < n_furgo; ++i) {
             E.setAk(i, this.ak[i]);
         }
