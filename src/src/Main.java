@@ -22,8 +22,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
 
-import Heurisitc_Function_1.Heuristic_Function;
-//import Heuristic_Function_2.Heuristic_Function;
+//import Heurisitc_Function_1.Heuristic_Function;
+import Heuristic_Function_2.Heuristic_Function;
 
 public class Main {
     public Main() {
@@ -31,7 +31,7 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
 
-        boolean h1 = true;
+        boolean h1 = false;
         pruebaG(h1,0);
         pruebaO(h1,0);
         pruebaR(h1,0);

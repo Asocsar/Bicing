@@ -18,13 +18,20 @@ G1_D0_1A = read.table("/home/asocar/Desktop/Universidad/Bicing/Estadisticas_G_D0
 O1_D0_1A = read.table("/home/asocar/Desktop/Universidad/Bicing/Estadisticas_Ord_D0_H1_1A.txt", header = TRUE, sep = ",", dec = ".")
 R1_D0_1A = read.table("/home/asocar/Desktop/Universidad/Bicing/Estadisticas_Rnd_D0_H1_1A.txt", header = TRUE, sep = ",", dec = ".")
 
+G2_D0_1A = read.table("/home/asocar/Desktop/Universidad/Bicing/Estadisticas_G_D0_H2_1A.txt", header = TRUE, sep = ",", dec = ".")
+O2_D0_1A = read.table("/home/asocar/Desktop/Universidad/Bicing/Estadisticas_Ord_D0_H2_1A.txt", header = TRUE, sep = ",", dec = ".")
+R2_D0_1A = read.table("/home/asocar/Desktop/Universidad/Bicing/Estadisticas_Rnd_D0_H2_1A.txt", header = TRUE, sep = ",", dec = ".")
+
 
 BG1_D0 <- G1_D0$BEN
 BG1_D0_A <- G1_D0_1A$BEN
+BG2_D0_A <- G2_D0_1A$BEN
 BO1_D0 <- O1_D0$BEN
 BO1_D0_A <- O1_D0_1A$BEN
+BO2_D0_A <- O2_D0_1A$BEN
 BR1_D0 <- R1_D0$BEN
 BR1_D0_A <- R1_D0_1A$BEN
+BR2_D0_A <- R2_D0_1A$BEN
 BG2_D0 <- G2_D0$BEN
 BO2_D0 <- O2_D0$BEN
 BR2_D0 <- R2_D0$BEN
@@ -330,3 +337,19 @@ boxplot(BG1_D0, BO1_D0, BR1_D0,
         at = c(1,2,3),
         names = c("Greedy", "Ordered", "Random")
 )
+
+
+boxplot(BG1_D0_A, BG2_D0_A,
+        main = "1 Accion, Greedy [H1 vs H2]",
+        at = c(1,2),
+        names = c("Heuristic 1", "Heuristic 2"))
+
+boxplot(BO1_D0_A, BO2_D0_A,
+main = "1 Accion, Ordered [H1 vs H2]",
+at = c(1,2),
+names = c("Heuristic 1", "Heuristic 2"))
+
+boxplot(BR1_D0_A, BR2_D0_A,
+main = "1 Accion, Random [H1 vs H2]",
+at = c(1,2),
+names = c("Heuristic 1", "Heuristic 2"))
